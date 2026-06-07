@@ -4,7 +4,7 @@
 services:
   # Flask ML Recommendation Service (Python)
   - type: web
-    name: cinematch-ml
+    name: matchhub-ml
     runtime: python
     rootDir: ml-service
     buildCommand: chmod +x build.sh && ./build.sh
@@ -16,7 +16,7 @@ services:
 
   # Express Backend API (Node.js)
   - type: web
-    name: cinematch-backend
+    name: matchhub-backend
     runtime: node
     rootDir: backend
     buildCommand: npm install
