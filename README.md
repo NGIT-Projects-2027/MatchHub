@@ -148,6 +148,12 @@ Because the ML dataset doesn't contain live poster URLs, the backend integrates 
 2. **Title Sanitization**: Many ML datasets append years to titles (e.g., "Toy Story (1995)"). The backend uses a Regular Expression (`movie.title.replace(/\s*\(\d{4}\)$/, "")`) to strip this out, as the TVDB search API often fails if the year is included in the query string.
 3. **Concurrent Fetching**: When the ML service returns 10 recommendations, the backend uses `Promise.all()` to fire off 10 concurrent requests to TVDB, rapidly appending `image_url` properties to the payload before sending the final response to the user.
 
+### Book Cover Proxy & Google Books Integration (`backend/routes/books.js`)
+Similar to movies, the ML dataset for books lacks high-quality cover images. MatchHub solves this via an intelligent backend proxy:
+1. **Google Books API Priority**: The frontend image tags point to `/api/books/cover/:isbn`. The backend securely intercepts this and queries the Google Books API using the private `GOOGLE_BOOKS_API_KEY`. It scans the response for the highest possible resolution (`extraLarge`, `large`, `medium`) before falling back to lower resolutions.
+2. **OpenLibrary Fallback**: If the Google Books API quota is exceeded, or if the API key is missing, or if Google simply doesn't have the book cover, the backend automatically issues an HTTP 302 Redirect to the free, public `OpenLibrary` covers API.
+3. **Browser Caching**: The backend sets aggressive HTTP `Cache-Control` headers so the browser natively caches the 302 Redirects, significantly reducing API calls and improving load times.
+
 ---
 
 ## 🖥️ Deep Dive: Frontend Architecture

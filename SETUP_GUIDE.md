@@ -65,6 +65,7 @@ The backend handles user authentication, favorites, search history, and fetches 
    JWT_SECRET=<JWT signing key>
    FLASK_ML_URL=http://localhost:5000
    TVDB_API_KEY=<TVDB API key>
+   GOOGLE_BOOKS_API_KEY=<Google Books API key>
    ```
    > **Note:** `FLASK_ML_URL=http://localhost:5000` is correct — `localhost` means "this computer", so it will automatically connect to the Flask ML service you started in Step 1. No changes needed.
    
