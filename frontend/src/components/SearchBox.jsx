@@ -1,0 +1,296 @@
+import { useState, useEffect, useRef } from "react";
+import { movieAPI, bookAPI } from "@/lib/api";
+import { Search, X, Film, BookOpen, Loader2, User as UserIcon } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+
+export default function SearchBox({ onSearch, loading: externalLoading, domain = "movies" }) {
+  const [query, setQuery] = useState("");
+  const [allItems, setAllItems] = useState([]);
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const inputRef = useRef(null);
+  const containerRef = useRef(null);
+
+  const isMovies = domain === "movies";
+
+  useEffect(() => {
+    // Reset on domain change
+    setQuery("");
+    setSuggestions([]);
+    setAllItems([]);
+    setShowSuggestions(false);
+
+    // Fetch all items for fast local filtering
+    const loadAll = async () => {
+      try {
+        if (isMovies) {
+          const res = await movieAPI.search("all");
+          setAllItems(res.data);
+        } else {
+          const res = await bookAPI.search("all");
+          setAllItems(res.data);
+        }
+      } catch (err) {
+        console.error("Failed to load items:", err);
+      }
+    };
+    loadAll();
+
+    // Close suggestions on outside click
+    const handleClickOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setShowSuggestions(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [domain]);
+
+  const filterItems = (q) => {
+    if (!q) {
+      setSuggestions(allItems.slice(0, 100));
+      return;
+    }
+    const lowerQ = q.toLowerCase();
+    const filtered = allItems.filter((item) => item.title.toLowerCase().includes(lowerQ));
+    setSuggestions(filtered.slice(0, 100));
+  };
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    setQuery(value);
+    setShowSuggestions(true);
+    filterItems(value);
+  };
+
+  const handleFocus = () => {
+    setShowSuggestions(true);
+    filterItems(query);
+  };
+
+  const handleSelect = (item) => {
+    setQuery(item.title);
+    setShowSuggestions(false);
+    onSearch(item.title);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (query.trim()) {
+      setShowSuggestions(false);
+      onSearch(query.trim());
+    }
+  };
+
+  const handleClear = () => {
+    setQuery("");
+    setSuggestions([]);
+    setShowSuggestions(false);
+    inputRef.current?.focus();
+  };
+
+  const DomainIcon = isMovies ? Film : BookOpen;
+  const placeholderText = isMovies
+    ? "Search for a movie... (e.g., Toy Story, Avatar, Inception)"
+    : "Search for a book... (e.g., Harry Potter, The Great Gatsby)";
+
+  return (
+    <div ref={containerRef} style={{ position: "relative", width: "100%", maxWidth: "640px" }}>
+      <form onSubmit={handleSubmit}>
+        <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
+          <div
+            style={{
+              position: "absolute",
+              left: "1rem",
+              color: "var(--color-text-muted)",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {externalLoading ? (
+              <Loader2 size={20} style={{ animation: "spin 1s linear infinite" }} />
+            ) : (
+              <Search size={20} />
+            )}
+          </div>
+          <input
+            ref={inputRef}
+            id="search-input"
+            type="text"
+            value={query}
+            onChange={handleInputChange}
+            onFocus={handleFocus}
+            placeholder={placeholderText}
+            className="input-field"
+            style={{
+              paddingLeft: "2.8rem",
+              paddingRight: query ? "5rem" : "1rem",
+              height: "52px",
+              fontSize: "1rem",
+              borderRadius: "var(--radius-xl)",
+              background: "var(--color-bg-card)",
+              border: "1px solid var(--color-border)",
+            }}
+          />
+          {query && (
+            <button
+              type="button"
+              onClick={handleClear}
+              style={{
+                position: "absolute",
+                right: "70px",
+                background: "none",
+                border: "none",
+                color: "var(--color-text-muted)",
+                cursor: "pointer",
+                display: "flex",
+                padding: "4px",
+              }}
+            >
+              <X size={18} />
+            </button>
+          )}
+          <button
+            type="submit"
+            disabled={!query.trim() || externalLoading}
+            className="btn-gradient"
+            style={{
+              position: "absolute",
+              right: "4px",
+              height: "44px",
+              borderRadius: "var(--radius-lg)",
+              padding: "0 1.2rem",
+              fontSize: "0.9rem",
+            }}
+          >
+            Search
+          </button>
+        </div>
+      </form>
+
+      {/* Suggestions Dropdown */}
+      <AnimatePresence>
+        {showSuggestions && suggestions.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.15 }}
+            style={{
+              position: "absolute",
+              top: "calc(100% + 8px)",
+              left: 0,
+              right: 0,
+              background: "var(--color-bg-card)",
+              border: "1px solid var(--color-border)",
+              borderRadius: "var(--radius-lg)",
+              boxShadow: "var(--shadow-card)",
+              overflow: "hidden",
+              zIndex: 50,
+              maxHeight: "360px",
+              overflowY: "auto",
+            }}
+          >
+            {suggestions.map((item, idx) => (
+              <button
+                key={isMovies ? item.movieId : item.isbn}
+                onClick={() => handleSelect(item)}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.75rem",
+                  width: "100%",
+                  padding: "0.7rem 1rem",
+                  border: "none",
+                  background: "transparent",
+                  color: "var(--color-text-primary)",
+                  cursor: "pointer",
+                  textAlign: "left",
+                  borderBottom:
+                    idx < suggestions.length - 1
+                      ? "1px solid var(--color-border)"
+                      : "none",
+                  transition: "background 0.15s ease",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = isMovies
+                    ? "rgba(139, 92, 246, 0.08)"
+                    : "rgba(20, 184, 166, 0.08)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background = "transparent")
+                }
+              >
+                <DomainIcon
+                  size={16}
+                  style={{ color: isMovies ? "var(--color-accent-purple)" : "#14b8a6", flexShrink: 0 }}
+                />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p
+                    style={{
+                      fontSize: "0.9rem",
+                      fontWeight: "500",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {item.title}
+                  </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "0.3rem",
+                      marginTop: "0.2rem",
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    {isMovies ? (
+                      item.genres?.slice(0, 3).map((g) => (
+                        <span key={g} style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>
+                          {g}
+                        </span>
+                      ))
+                    ) : (
+                      <>
+                        {item.author && (
+                          <span style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", display: "flex", alignItems: "center", gap: "0.2rem" }}>
+                            <UserIcon size={10} /> {item.author}
+                          </span>
+                        )}
+                        {item.year && item.year !== "0" && (
+                          <span style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>
+                            • {item.year}
+                          </span>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
+                {item.avg_rating > 0 && (
+                  <span
+                    style={{
+                      fontSize: "0.8rem",
+                      color: "var(--color-accent-amber)",
+                      fontWeight: "600",
+                      flexShrink: 0,
+                    }}
+                  >
+                    ★ {item.avg_rating.toFixed(1)}
+                  </span>
+                )}
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <style>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
+    </div>
+  );
+}
