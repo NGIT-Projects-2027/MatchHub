@@ -160,4 +160,37 @@ router.get("/favorites", authMiddleware, async (req, res) => {
   }
 });
 
+/**
+ * GET /api/books/cover/:isbn
+ * Proxy to fetch book covers from Google Books API to avoid exposing API key on frontend.
+ * Returns a 302 Redirect to the actual image URL.
+ */
+router.get("/cover/:isbn", async (req, res) => {
+  const { isbn } = req.params;
+  const apiKey = process.env.GOOGLE_BOOKS_API_KEY;
+
+  try {
+    // Add aggressive caching so the browser doesn't spam our backend for images it already saw
+    res.setHeader("Cache-Control", "public, max-age=864000");
+
+    if (apiKey) {
+      const response = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}&key=${apiKey}`);
+      
+      if (response.data.items && response.data.items.length > 0) {
+        const volumeInfo = response.data.items[0].volumeInfo;
+        if (volumeInfo.imageLinks && volumeInfo.imageLinks.thumbnail) {
+          // Redirect the browser directly to the image
+          return res.redirect(volumeInfo.imageLinks.thumbnail.replace("http:", "https:"));
+        }
+      }
+    }
+    
+    // Fallback to OpenLibrary if Google doesn't have it or if API key is missing
+    res.redirect(`https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`);
+  } catch (err) {
+    // Silent fallback to OpenLibrary on any error
+    res.redirect(`https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`);
+  }
+});
+
 module.exports = router;

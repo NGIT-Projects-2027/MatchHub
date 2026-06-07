@@ -46,7 +46,8 @@ export default function BookCard({
     image_url,
   } = book;
 
-  const finalImageUrl = image_url || (isbn ? `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg` : "");
+  const API_BASE = import.meta.env.VITE_API_URL || "/api";
+  const finalImageUrl = image_url || (isbn ? `${API_BASE}/books/cover/${isbn}` : "");
 
   return (
     <motion.div
