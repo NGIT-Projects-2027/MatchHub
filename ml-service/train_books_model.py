@@ -81,6 +81,13 @@ def train_books_model():
     # Drop rows with missing critical fields
     books = books.dropna(subset=["Title", "Author", "Publisher"])
 
+    # Remove duplicate editions (same title, different ISBN/year)
+    # We sort by num_ratings so we keep the most popular/main edition
+    print("[*] Removing duplicate editions...")
+    books = books.sort_values("num_ratings", ascending=False)
+    books = books.drop_duplicates(subset=["Title"], keep="first")
+    print(f"  Books after deduplication: {books.shape}")
+
     # Clean year column
     books["Year"] = pd.to_numeric(books["Year"], errors="coerce").fillna(0).astype(int)
 
