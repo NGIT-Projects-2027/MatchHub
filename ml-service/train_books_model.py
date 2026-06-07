@@ -82,10 +82,16 @@ def train_books_model():
     books = books.dropna(subset=["Title", "Author", "Publisher"])
 
     # Remove duplicate editions (same title, different ISBN/year)
-    # We sort by num_ratings so we keep the most popular/main edition
+    # Create a temporary normalized title column for robust deduplication
     print("[*] Removing duplicate editions...")
+    books["dedup_title"] = books["Title"].str.lower().str.replace(r"\(.*?\)", "", regex=True).str.strip()
+    
+    # Sort by num_ratings so we keep the most popular/main edition
     books = books.sort_values("num_ratings", ascending=False)
-    books = books.drop_duplicates(subset=["Title"], keep="first")
+    books = books.drop_duplicates(subset=["dedup_title"], keep="first")
+    
+    # Drop the temporary column
+    books = books.drop(columns=["dedup_title"])
     print(f"  Books after deduplication: {books.shape}")
 
     # Clean year column

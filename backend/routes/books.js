@@ -178,9 +178,15 @@ router.get("/cover/:isbn", async (req, res) => {
       
       if (response.data.items && response.data.items.length > 0) {
         const volumeInfo = response.data.items[0].volumeInfo;
-        if (volumeInfo.imageLinks && volumeInfo.imageLinks.thumbnail) {
-          // Redirect the browser directly to the image
-          return res.redirect(volumeInfo.imageLinks.thumbnail.replace("http:", "https:"));
+        if (volumeInfo.imageLinks) {
+          // Try to get the highest quality available before falling back to thumbnail
+          const links = volumeInfo.imageLinks;
+          const bestImage = links.extraLarge || links.large || links.medium || links.small || links.thumbnail;
+          
+          if (bestImage) {
+            // Redirect the browser directly to the high-quality image
+            return res.redirect(bestImage.replace("http:", "https:"));
+          }
         }
       }
     }
