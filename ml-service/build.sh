@@ -7,8 +7,9 @@ set -e
 echo "[BUILD] Installing Python dependencies..."
 pip install -r requirements.txt
 
-echo "[BUILD] Training ML model..."
+echo "[BUILD] Training ML models..."
 python train_movies_model.py
+python train_books_model.py
 
 echo "[BUILD] Done! Pickle files generated in models/"
 ls -lh models/
