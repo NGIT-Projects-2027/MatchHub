@@ -46,7 +46,7 @@ export default function BookCard({
     image_url,
   } = book;
 
-  const finalImageUrl = image_url || (isbn ? `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg?default=false` : "");
+  const finalImageUrl = image_url || (isbn ? `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg` : "");
 
   return (
     <motion.div
