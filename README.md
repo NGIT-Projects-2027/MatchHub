@@ -2,7 +2,7 @@
 
 Welcome to **MatchHub**, a state-of-the-art, full-stack, enterprise-grade recommendation platform spanning multiple media domains, specifically designed for movies and books. 
 
-**🌐 Live Demo:** [https://cine-match-bice-one.vercel.app](https://cine-match-bice-one.vercel.app)
+**🌐 Live Demo:** [https://movies-hub-recommendations.vercel.app](https://movies-hub-recommendations.vercel.app)
 
 MatchHub leverages modern web technologies combined with Machine Learning (ML) techniques—specifically Natural Language Processing (NLP) and content-based filtering algorithms—to deliver highly personalized, instantaneous suggestions. By analyzing and transforming rich metadata attributes such as genres, plots, authors, cast, and publishers into mathematical vectors, the platform identifies the closest semantic matches to whatever media you search for.
 
@@ -48,8 +48,9 @@ Instead of relying on Collaborative Filtering (which suffers from the "cold star
 
 ### 🖼️ Dynamic Media Loading & External Integrations
 - **TVDB API Integration**: Connects seamlessly with the official TVDB API v4 to dynamically fetch high-resolution movie posters.
-- **Smart Caching & Token Management**: Automatically handles OAuth login handshakes, caches bearer tokens in memory, and tracks expiration dates (28-day lifecycle) without manual intervention.
-- **Graceful Fallbacks**: If a poster is unavailable or an API rate limit is hit, the frontend gracefully falls back to generating a beautiful, dynamic gradient placeholder using the first letter of the media title.
+- **Google Books API Integration**: Employs a custom backend proxy to intercept cover requests and securely query the Google Books API for high-resolution book thumbnails without exposing API keys to the frontend.
+- **Multi-Layered Fallback System**: If Google Books lacks a cover or quota is exceeded, the system automatically redirects to the free OpenLibrary database. If OpenLibrary also fails, the React frontend generates a beautiful, dynamic CSS gradient placeholder containing the item's title.
+- **Smart Caching & Token Management**: Automatically handles TVDB OAuth login handshakes and intelligently sets `Cache-Control` headers for Google Books HTTP 302 redirects to minimize bandwidth.
 
 ### 🔐 Robust User Management & Security
 - **Stateless JWT Authentication**: Secures all user interactions without relying on server-side session stores, improving horizontal scalability.
@@ -414,7 +415,7 @@ MatchHub is built as an open-source educational portfolio project.
 - **Datasets**: 
   - Movie datasets provided by GroupLens Research (MovieLens / TMDB 5000).
   - Book datasets provided by the Book-Crossing community.
-- **Media Assets**: Movie poster imagery dynamically fetched and provided by [TheTVDB](https://thetvdb.com/).
+- **Media Assets**: Movie poster imagery dynamically fetched and provided by [TheTVDB](https://thetvdb.com/). Book covers provided by the [Google Books API](https://developers.google.com/books) and [OpenLibrary](https://openlibrary.org/).
 - **License**: MIT License. You are free to use, modify, and distribute this software for non-commercial and educational purposes.
 
 ---
