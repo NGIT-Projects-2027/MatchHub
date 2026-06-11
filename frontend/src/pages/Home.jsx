@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useDomain } from "@/context/DomainContext";
-import { movieAPI, favoritesAPI, bookAPI, bookFavoritesAPI } from "@/lib/api";
+import { movieAPI, favoritesAPI, bookAPI, bookFavoritesAPI, songAPI, songFavoritesAPI } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 import SearchBox from "@/components/SearchBox";
 import MovieCard from "@/components/MovieCard";
 import BookCard from "@/components/BookCard";
-import { Sparkles, TrendingUp, Film, BookOpen } from "lucide-react";
+import SongCard from "@/components/SongCard";
+import { Sparkles, TrendingUp, Film, BookOpen, Music } from "lucide-react";
 
 export default function Home() {
   const { isAuthenticated } = useAuth();
@@ -32,8 +33,11 @@ export default function Home() {
       if (domain === "movies") {
         const res = await movieAPI.trending();
         setTrending(res.data);
-      } else {
+      } else if (domain === "books") {
         const res = await bookAPI.trending();
+        setTrending(res.data);
+      } else {
+        const res = await songAPI.trending();
         setTrending(res.data);
       }
     } catch (err) { console.error("Trending error:", err); }
@@ -44,8 +48,11 @@ export default function Home() {
       if (domain === "movies") {
         const res = await favoritesAPI.getFavorites();
         setFavorites(res.data);
-      } else {
+      } else if (domain === "books") {
         const res = await bookFavoritesAPI.getFavorites();
+        setFavorites(res.data);
+      } else {
+        const res = await songFavoritesAPI.getFavorites();
         setFavorites(res.data);
       }
     } catch (err) { console.error("Favorites error:", err); }
@@ -61,8 +68,12 @@ export default function Home() {
         const res = await movieAPI.recommend(title);
         setSearchedItem(res.data.searched);
         setRecommendations(res.data.recommendations);
-      } else {
+      } else if (domain === "books") {
         const res = await bookAPI.recommend(title);
+        setSearchedItem(res.data.searched);
+        setRecommendations(res.data.recommendations);
+      } else {
+        const res = await songAPI.recommend(title);
         setSearchedItem(res.data.searched);
         setRecommendations(res.data.recommendations);
       }
@@ -84,7 +95,7 @@ export default function Home() {
           setFavorites(prev => [...prev, { movieId: item.movieId, title: item.title, genres: item.genres }]);
         }
       } catch (err) { console.error("Favorite error:", err); }
-    } else {
+    } else if (domain === "books") {
       const isFav = favorites.some(f => f.isbn === item.isbn);
       try {
         if (isFav) {
@@ -95,20 +106,31 @@ export default function Home() {
           setFavorites(prev => [...prev, { isbn: item.isbn, title: item.title, author: item.author, imageUrl: item.image_url }]);
         }
       } catch (err) { console.error("Favorite error:", err); }
+    } else {
+      const isFav = favorites.some(f => f.songId === item.songId);
+      try {
+        if (isFav) {
+          await songFavoritesAPI.removeFavorite(item.songId);
+          setFavorites(prev => prev.filter(f => f.songId !== item.songId));
+        } else {
+          await songFavoritesAPI.addFavorite({ songId: item.songId, title: item.title, artist: item.artist, album: item.album });
+          setFavorites(prev => [...prev, { songId: item.songId, title: item.title, artist: item.artist, album: item.album }]);
+        }
+      } catch (err) { console.error("Favorite error:", err); }
     }
   };
 
   const isFavorite = (item) => {
     if (domain === "movies") return favorites.some(f => f.movieId === item.movieId);
-    return favorites.some(f => f.isbn === item.isbn);
+    if (domain === "books") return favorites.some(f => f.isbn === item.isbn);
+    return favorites.some(f => f.songId === item.songId);
   };
 
-  const isMovies = domain === "movies";
-  const accentColor = isMovies ? "var(--color-accent-purple)" : "#14b8a6";
-  const DomainIcon = isMovies ? Film : BookOpen;
-  const ItemCard = isMovies ? MovieCard : BookCard;
-  const itemLabel = isMovies ? "Movie" : "Book";
-  const itemKey = isMovies ? "movieId" : "isbn";
+  const accentColor = domain === "movies" ? "var(--color-accent-purple)" : (domain === "books" ? "#14b8a6" : "#ec4899");
+  const DomainIcon = domain === "movies" ? Film : (domain === "books" ? BookOpen : Music);
+  const ItemCard = domain === "movies" ? MovieCard : (domain === "books" ? BookCard : SongCard);
+  const itemLabel = domain === "movies" ? "Movie" : (domain === "books" ? "Book" : "Song");
+  const itemKey = domain === "movies" ? "movieId" : (domain === "books" ? "isbn" : "songId");
 
   return (
     <div style={{ minHeight: "100vh" }}>
@@ -123,17 +145,21 @@ export default function Home() {
           </div>
           <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.2rem)", fontWeight: 800, lineHeight: 1.15, marginBottom: "1rem", letterSpacing: "-0.03em" }}>
             Discover Your Next{" "}
-            <span style={{ background: isMovies
+            <span style={{ background: domain === "movies"
               ? "linear-gradient(135deg, #8b5cf6, #a855f7, #c084fc)"
-              : "linear-gradient(135deg, #0d9488, #14b8a6, #2dd4bf)",
+              : domain === "books"
+              ? "linear-gradient(135deg, #0d9488, #14b8a6, #2dd4bf)"
+              : "linear-gradient(135deg, #ec4899, #d946ef, #a855f7)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
               Favorite {itemLabel}
             </span>
           </h1>
           <p style={{ fontSize: "1.1rem", color: "var(--color-text-secondary)", maxWidth: 520, margin: "0 auto 2rem", lineHeight: 1.6 }}>
-            {isMovies
+            {domain === "movies"
               ? "Search any movie and our ML engine finds the best matches using content-based similarity analysis."
-              : "Search any book and our ML engine finds the best matches using author, publisher, and content analysis."}
+              : domain === "books"
+              ? "Search any book and our ML engine finds the best matches using author, publisher, and content analysis."
+              : "Search any song and our ML engine finds the best matches using artist, album, and acoustic style analysis."}
           </p>
         </motion.div>
 
@@ -178,7 +204,7 @@ export default function Home() {
                 <h3 style={{ fontSize: "1.1rem", fontWeight: 600, marginBottom: "1rem", color: "var(--color-text-secondary)" }}>Searched {itemLabel}</h3>
                 <div style={{ maxWidth: "240px" }}>
                   <ItemCard
-                    {...(isMovies ? { movie: searchedItem } : { book: searchedItem })}
+                    {...(domain === "movies" ? { movie: searchedItem } : (domain === "books" ? { book: searchedItem } : { song: searchedItem }))}
                     onFavorite={isAuthenticated ? handleFavorite : undefined}
                     isFavorite={isFavorite(searchedItem)}
                   />
@@ -191,8 +217,9 @@ export default function Home() {
               {recommendations.slice(0, 5).map((item, idx) => (
                 <ItemCard
                   key={item[itemKey]}
-                  {...(isMovies ? { movie: item } : { book: item })}
+                  {...(domain === "movies" ? { movie: item } : (domain === "books" ? { book: item } : { song: item }))}
                   index={idx}
+                  showSimilarity={true}
                   onFavorite={isAuthenticated ? handleFavorite : undefined}
                   isFavorite={isFavorite(item)}
                   onClick={handleSearch}
@@ -214,7 +241,7 @@ export default function Home() {
             {trending.map((item, idx) => (
               <ItemCard
                 key={item[itemKey]}
-                {...(isMovies ? { movie: item } : { book: item })}
+                {...(domain === "movies" ? { movie: item } : (domain === "books" ? { book: item } : { song: item }))}
                 index={idx}
                 onFavorite={isAuthenticated ? handleFavorite : undefined}
                 isFavorite={isFavorite(item)}

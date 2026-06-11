@@ -1,23 +1,26 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
-import { favoritesAPI, bookFavoritesAPI, historyAPI } from "@/lib/api";
+import { favoritesAPI, bookFavoritesAPI, songFavoritesAPI, historyAPI } from "@/lib/api";
 import { motion } from "framer-motion";
 import MovieCard from "@/components/MovieCard";
 import BookCard from "@/components/BookCard";
-import { User, Mail, Calendar, Heart, BookOpen, History, LogOut } from "lucide-react";
+import SongCard from "@/components/SongCard";
+import { User, Mail, Calendar, Heart, BookOpen, Music, History, LogOut } from "lucide-react";
 
 export default function Profile() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [movieFavorites, setMovieFavorites] = useState([]);
   const [bookFavorites, setBookFavorites] = useState([]);
+  const [songFavorites, setSongFavorites] = useState([]);
   const [recentSearches, setRecentSearches] = useState([]);
   const [tab, setTab] = useState("movieFavorites");
 
   useEffect(() => {
     loadMovieFavorites();
     loadBookFavorites();
+    loadSongFavorites();
     loadRecent();
   }, []);
 
@@ -26,6 +29,9 @@ export default function Profile() {
   };
   const loadBookFavorites = async () => {
     try { const res = await bookFavoritesAPI.getFavorites(); setBookFavorites(res.data); } catch (e) { console.error(e); }
+  };
+  const loadSongFavorites = async () => {
+    try { const res = await songFavoritesAPI.getFavorites(); setSongFavorites(res.data); } catch (e) { console.error(e); }
   };
   const loadRecent = async () => {
     try { const res = await historyAPI.getHistory(); setRecentSearches(res.data.slice(0, 10)); } catch (e) { console.error(e); }
@@ -36,11 +42,15 @@ export default function Profile() {
   const removeBookFav = async (book) => {
     try { await bookFavoritesAPI.removeFavorite(book.isbn); setBookFavorites(prev => prev.filter(f => f.isbn !== book.isbn)); } catch (e) { console.error(e); }
   };
+  const removeSongFav = async (song) => {
+    try { await songFavoritesAPI.removeFavorite(song.songId); setSongFavorites(prev => prev.filter(f => f.songId !== song.songId)); } catch (e) { console.error(e); }
+  };
   const handleLogout = () => { logout(); navigate("/login"); };
 
   const tabs = [
     { id: "movieFavorites", label: "Movies", icon: Heart, count: movieFavorites.length, color: "var(--color-accent-purple)" },
     { id: "bookFavorites", label: "Books", icon: BookOpen, count: bookFavorites.length, color: "#14b8a6" },
+    { id: "songFavorites", label: "Songs", icon: Music, count: songFavorites.length, color: "#ec4899" },
     { id: "recent", label: "Recent", icon: History, count: recentSearches.length, color: "var(--color-text-secondary)" },
   ];
 
@@ -72,6 +82,10 @@ export default function Profile() {
           <div className="glass-card" style={{ padding: "1.2rem", textAlign: "center" }}>
             <p style={{ fontSize: "2rem", fontWeight: 700, color: "#14b8a6" }}>{bookFavorites.length}</p>
             <p style={{ fontSize: "0.85rem", color: "var(--color-text-muted)" }}>Book Favorites</p>
+          </div>
+          <div className="glass-card" style={{ padding: "1.2rem", textAlign: "center" }}>
+            <p style={{ fontSize: "2rem", fontWeight: 700, color: "#ec4899" }}>{songFavorites.length}</p>
+            <p style={{ fontSize: "0.85rem", color: "var(--color-text-muted)" }}>Song Favorites</p>
           </div>
           <div className="glass-card" style={{ padding: "1.2rem", textAlign: "center" }}>
             <p style={{ fontSize: "2rem", fontWeight: 700 }} className="gradient-text">{recentSearches.length}</p>
@@ -118,6 +132,21 @@ export default function Profile() {
           )
         )}
 
+        {/* Song Favorites Tab */}
+        {tab === "songFavorites" && (
+          songFavorites.length === 0 ? (
+            <div className="glass-card" style={{ padding: "3rem", textAlign: "center" }}>
+              <Music size={48} style={{ color: "var(--color-text-muted)", margin: "0 auto 1rem" }} />
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 600, marginBottom: "0.5rem" }}>No song favorites yet</h3>
+              <p style={{ color: "var(--color-text-muted)", fontSize: "0.9rem" }}>Heart songs from recommendations to save them here.</p>
+            </div>
+          ) : (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1rem" }}>
+              {songFavorites.map((song, idx) => <SongCard key={song.songId} song={song} index={idx} onFavorite={removeSongFav} isFavorite />)}
+            </div>
+          )
+        )}
+
         {/* Recent Tab */}
         {tab === "recent" && (
           recentSearches.length === 0 ? (
@@ -130,7 +159,7 @@ export default function Profile() {
               {recentSearches.map((item, idx) => (
                 <div key={item._id || idx} className="glass-card" style={{ padding: "0.8rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                    {item.type === "book" ? <BookOpen size={14} style={{ color: "#14b8a6" }} /> : <Heart size={14} style={{ color: "var(--color-accent-purple)" }} />}
+                    {item.type === "book" ? <BookOpen size={14} style={{ color: "#14b8a6" }} /> : (item.type === "song" ? <Music size={14} style={{ color: "#ec4899" }} /> : <Heart size={14} style={{ color: "var(--color-accent-purple)" }} />)}
                     <span style={{ fontWeight: 500 }}>{item.search}</span>
                   </div>
                   <span style={{ fontSize: "0.78rem", color: "var(--color-text-muted)" }}>{new Date(item.searchedAt).toLocaleDateString()}</span>

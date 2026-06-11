@@ -52,6 +52,7 @@ export const movieAPI = {
 export const historyAPI = {
   getHistory: () => api.get("/history"),
   clearHistory: () => api.delete("/history"),
+  deleteHistoryItem: (id) => api.delete(`/history/${id}`),
 };
 
 // --- Favorites APIs ---
@@ -73,6 +74,20 @@ export const bookFavoritesAPI = {
   getFavorites: () => api.get("/books/favorites"),
   addFavorite: (book) => api.post("/books/favorites", book),
   removeFavorite: (isbn) => api.delete(`/books/favorites/${encodeURIComponent(isbn)}`),
+};
+
+// --- Song Recommendation APIs ---
+export const songAPI = {
+  recommend: (song, top_n = 10) => api.post("/songs/recommend", { song, top_n }),
+  search: (query) => api.get(`/songs/search?q=${encodeURIComponent(query)}`),
+  trending: () => api.get("/songs/trending"),
+};
+
+// --- Song Favorites APIs ---
+export const songFavoritesAPI = {
+  getFavorites: () => api.get("/songs/favorites"),
+  addFavorite: (song) => api.post("/songs/favorites", song),
+  removeFavorite: (songId) => api.delete(`/songs/favorites/${encodeURIComponent(songId)}`),
 };
 
 export default api;

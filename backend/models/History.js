@@ -12,14 +12,17 @@ const historySchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ["movie", "book"],
+    enum: ["movie", "book", "song"],
     default: "movie",
   },
   results: [
     {
       movieId: Number,
+      isbn: String,
+      songId: String,
       title: String,
       genres: [String],
+      artist: String,
       similarity_score: Number,
     },
   ],

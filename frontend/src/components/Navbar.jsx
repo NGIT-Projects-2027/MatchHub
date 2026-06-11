@@ -12,6 +12,7 @@ import {
   Menu,
   X,
   Layers,
+  Music,
 } from "lucide-react";
 
 export default function Navbar() {
@@ -37,7 +38,7 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { path: "/", label: "Home", icon: domain === "movies" ? Film : BookOpen },
+    { path: "/", label: "Home", icon: domain === "movies" ? Film : (domain === "books" ? BookOpen : Music) },
     { path: "/history", label: "History", icon: History },
   ];
 
@@ -167,6 +168,33 @@ export default function Navbar() {
           >
             <BookOpen size={14} />
             Books
+          </button>
+          <button
+            onClick={() => handleDomainSwitch("songs")}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.35rem",
+              padding: "0.35rem 0.85rem",
+              borderRadius: "var(--radius-full)",
+              border: "none",
+              fontSize: "0.82rem",
+              fontWeight: "600",
+              cursor: "pointer",
+              transition: "all 0.25s ease",
+              background: domain === "songs"
+                ? "linear-gradient(135deg, rgba(236,72,153,0.25), rgba(217,70,239,0.15))"
+                : "transparent",
+              color: domain === "songs"
+                ? "#ec4899"
+                : "var(--color-text-muted)",
+              boxShadow: domain === "songs"
+                ? "0 0 12px rgba(236,72,153,0.15)"
+                : "none",
+            }}
+          >
+            <Music size={14} />
+            Songs
           </button>
         </div>
 

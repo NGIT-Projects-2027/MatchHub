@@ -1,12 +1,12 @@
 # MatchHub 🎯 — Multi-Domain AI Recommendation Platform
 
-Welcome to **MatchHub**, a state-of-the-art, full-stack, enterprise-grade recommendation platform spanning multiple media domains, specifically designed for movies and books. 
+Welcome to **MatchHub**, a state-of-the-art, full-stack, enterprise-grade recommendation platform spanning multiple media domains — specifically movies, books, and songs.
 
 **🌐 Live Demo:** [https://movies-hub-recommendations.vercel.app](https://movies-hub-recommendations.vercel.app)
 
-MatchHub leverages modern web technologies combined with Machine Learning (ML) techniques—specifically Natural Language Processing (NLP) and content-based filtering algorithms—to deliver highly personalized, instantaneous suggestions. By analyzing and transforming rich metadata attributes such as genres, plots, authors, cast, and publishers into mathematical vectors, the platform identifies the closest semantic matches to whatever media you search for.
+MatchHub leverages modern web technologies combined with Machine Learning (ML) techniques—specifically Natural Language Processing (NLP) and content-based filtering algorithms—to deliver highly personalized, instantaneous suggestions. By analyzing and transforming rich metadata attributes such as genres, plots, authors, artists, albums, cast, and publishers into mathematical vectors, the platform identifies the closest semantic matches to whatever media you search for.
 
-Whether you are a film buff looking for movies similar to *The Dark Knight* or a voracious reader searching for books like *The Hobbit*, MatchHub serves as a centralized hub to explore, discover, and organize your favorite media.
+Whether you are a film buff looking for movies similar to *The Dark Knight*, a voracious reader searching for books like *The Hobbit*, or a music lover hunting for songs like *Bohemian Rhapsody*, MatchHub serves as a centralized hub to explore, discover, and organize your favorite media.
 
 ---
 
@@ -41,7 +41,7 @@ Instead of relying on Collaborative Filtering (which suffers from the "cold star
 ## 🌟 Comprehensive Feature List
 
 ### 🧠 Advanced Content-Based ML Recommender Engine
-- **Multi-Domain Intelligence**: Operates distinct ML pipelines for Movies (TMDB dataset) and Books (Book-Crossing dataset).
+- **Multi-Domain Intelligence**: Operates distinct ML pipelines for Movies (TMDB dataset), Books (Book-Crossing dataset), and Songs (Last.fm / music metadata dataset).
 - **Intelligent NLP Parsing**: Parses complex, messy metadata (stringified JSON arrays, misspellings, disparate tags) into unified semantic text blocks.
 - **Lightning-Fast Vector Math**: Computes Cosine Similarity against a 5000-dimensional matrix in mere milliseconds.
 - **Memory Optimization**: Compresses the massive $N \times N$ similarity matrices into `float16` precision, reducing RAM overhead from hundreds of megabytes down to ~46MB, allowing the service to run on lightweight, free-tier cloud instances.
@@ -49,8 +49,9 @@ Instead of relying on Collaborative Filtering (which suffers from the "cold star
 ### 🖼️ Dynamic Media Loading & External Integrations
 - **TVDB API Integration**: Connects seamlessly with the official TVDB API v4 to dynamically fetch high-resolution movie posters.
 - **Google Books API Integration**: Employs a custom backend proxy to intercept cover requests and securely query the Google Books API for high-resolution book thumbnails without exposing API keys to the frontend.
-- **Multi-Layered Fallback System**: If Google Books lacks a cover or quota is exceeded, the system automatically redirects to the free OpenLibrary database. If OpenLibrary also fails, the React frontend generates a beautiful, dynamic CSS gradient placeholder containing the item's title.
-- **Smart Caching & Token Management**: Automatically handles TVDB OAuth login handshakes and intelligently sets `Cache-Control` headers for Google Books HTTP 302 redirects to minimize bandwidth.
+- **iTunes Search API Integration**: Song cover art is fetched via a backend proxy to the public Apple iTunes Search API, upgrading artwork resolution from 100×100 to 600×600 pixels with aggressive browser caching.
+- **Multi-Layered Fallback System**: If Google Books lacks a cover or quota is exceeded, the system automatically redirects to the free OpenLibrary database. If OpenLibrary also fails, the React frontend generates a beautiful, dynamic CSS gradient placeholder containing the item's title. Song covers fall back to a curated Unsplash music photograph.
+- **Smart Caching & Token Management**: Automatically handles TVDB OAuth login handshakes and intelligently sets `Cache-Control` headers for Google Books and iTunes HTTP 302 redirects to minimize bandwidth.
 
 ### 🔐 Robust User Management & Security
 - **Stateless JWT Authentication**: Secures all user interactions without relying on server-side session stores, improving horizontal scalability.
@@ -58,9 +59,10 @@ Instead of relying on Collaborative Filtering (which suffers from the "cold star
 - **Protected Routes**: Middleware verifies JSON Web Tokens on all mutating endpoints (adding favorites, accessing history).
 
 ### 📁 Custom Bookmarks, Analytics & User Profiles
-- **Multi-Domain Favorites**: Users can curate cross-domain libraries, saving both movies and books to their personal profile.
+- **Multi-Domain Favorites**: Users can curate cross-domain libraries, saving movies, books, and songs to their personal profile.
 - **Search History Tracking**: The backend silently logs all authenticated searches and the resulting AI recommendations, allowing users to revisit past discoveries.
-- **Slick Autocomplete Search**: Real-time debounce dropdown lists querying the Flask ML in-memory indexes, presenting instantaneous title matches as the user types.
+- **Granular History Management**: Users can delete individual history entries or clear the entire history at once, both with confirmation dialogs to prevent accidental data loss.
+- **Slick Autocomplete Search**: Real-time debounce dropdown lists querying the Flask ML in-memory indexes, presenting instantaneous title matches as the user types, with domain-specific metadata (genres, author, artist/album) shown in the dropdown.
 
 ---
 
@@ -202,6 +204,15 @@ const UserSchema = new mongoose.Schema({
       imageUrl: String,
       addedAt: { type: Date, default: Date.now }
     }
+  ],
+  songFavorites: [ // Song Favorites
+    {
+      songId: String,
+      title: String,
+      artist: String,
+      album: String,
+      addedAt: { type: Date, default: Date.now }
+    }
   ]
 });
 ```
@@ -212,7 +223,7 @@ An analytical table that tracks user behavior and AI outputs over time.
 const HistorySchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   search: { type: String, required: true },
-  type: { type: String, enum: ['movie', 'book'], default: 'movie' },
+  type: { type: String, enum: ['movie', 'book', 'song'], default: 'movie' },
   searchedAt: { type: Date, default: Date.now },
   results: [ // Snapshots the recommendations at the time of search
     {
@@ -257,18 +268,31 @@ The Node.js backend exposes a RESTful API. Below are the core endpoints.
 | `GET` | `/api/books/search?q=...`| Autocomplete book search | None | No |
 | `GET` | `/api/books/trending` | Get top-rated books | None | No |
 
+### Song Recommendation Endpoints
+
+| Method | Endpoint | Description | Request Body | Auth Required |
+| :--- | :--- | :--- | :--- | :--- |
+| `POST` | `/api/songs/recommend` | Get song AI recommendations | `{ song, top_n }` | Optional* |
+| `GET` | `/api/songs/search?q=...`| Autocomplete song search | None | No |
+| `GET` | `/api/songs/trending` | Get trending songs | None | No |
+| `GET` | `/api/songs/cover?title=&artist=` | Fetch iTunes cover art (302 redirect) | None | No |
+
 ### User Data Endpoints
 
 | Method | Endpoint | Description | Auth Required |
 | :--- | :--- | :--- | :--- |
 | `GET` | `/api/history` | Retrieve user search history | **Yes** |
 | `DELETE` | `/api/history` | Clear all user history | **Yes** |
+| `DELETE` | `/api/history/:id` | Delete a single history entry | **Yes** |
 | `GET` | `/api/favorites` | Get saved movies | **Yes** |
 | `POST` | `/api/favorites` | Save movie to favorites | **Yes** |
 | `DELETE` | `/api/favorites/:id`| Remove movie from favorites | **Yes** |
 | `GET` | `/api/books/favorites` | Get saved books | **Yes** |
 | `POST` | `/api/books/favorites` | Save book to favorites | **Yes** |
 | `DELETE` | `/api/books/favorites/:isbn`| Remove book from favorites | **Yes** |
+| `GET` | `/api/songs/favorites` | Get saved songs | **Yes** |
+| `POST` | `/api/songs/favorites` | Save song to favorites | **Yes** |
+| `DELETE` | `/api/songs/favorites/:songId`| Remove song from favorites | **Yes** |
 
 ---
 
@@ -278,25 +302,26 @@ The Node.js backend exposes a RESTful API. Below are the core endpoints.
 matchhub/
 ├── backend/                   # Node.js Express API
 │   ├── models/                # Mongoose Database Schemas (User.js, History.js)
-│   ├── routes/                # Express Routers (auth.js, movies.js, books.js)
+│   ├── routes/                # Express Routers (auth.js, movies.js, books.js, songs.js)
 │   ├── middleware/            # JWT validation logic
 │   ├── server.js              # Entry point & Express configuration
 │   └── package.json           
 ├── frontend/                  # React Vite SPA
 │   ├── src/                   
-│   │   ├── components/        # Reusable UI components (Navbar, MovieCard)
-│   │   ├── context/           # Global State (AuthContext)
-│   │   ├── pages/             # Route level components (Home, Profile, Login)
-│   │   ├── lib/               # Utilities and Axios setup
+│   │   ├── components/        # Reusable UI components (Navbar, MovieCard, BookCard, SongCard)
+│   │   ├── context/           # Global State (AuthContext, DomainContext)
+│   │   ├── pages/             # Route level components (Home, Profile, History, Login)
+│   │   ├── lib/               # Utilities and Axios setup (api.js)
 │   │   ├── index.css          # Global styles, variables, and Tailwind imports
 │   │   └── App.jsx            # React Router setup
 │   └── package.json
 ├── ml-service/                # Python Flask Microservice
-│   ├── data/                  # Raw CSV datasets (movies/, books/)
+│   ├── data/                  # Raw CSV datasets (movies/, books/, songs/)
 │   ├── models/                # Generated Pickle files (.pkl)
 │   ├── app.py                 # Flask server exposing ML endpoints
 │   ├── train_movies_model.py  # Script to vectorize TMDB dataset
 │   ├── train_books_model.py   # Script to vectorize Book-Crossing dataset
+│   ├── train_songs_model.py   # Script to vectorize music metadata dataset
 │   └── requirements.txt
 └── README.md                  # This documentation
 ```
@@ -325,6 +350,7 @@ pip install -r requirements.txt
 # Run the training scripts to generate the .pkl matrices
 python train_movies_model.py
 python train_books_model.py
+python train_songs_model.py
 
 # Boot the Flask server
 python app.py
@@ -401,10 +427,10 @@ MatchHub is designed to be easily deployable using Platform-as-a-Service (PaaS) 
 ## 🔮 Future Roadmap & Enhancements
 
 While MatchHub is highly functional, several enhancements are planned for future iterations:
-1. **Third Domain Integration**: Adding support for Video Game recommendations (utilizing IGDB data).
+1. **Video Game Domain Integration**: Adding support for Video Game recommendations (utilizing IGDB data).
 2. **Hybrid Filtering System**: Combining the current Content-Based engine with Collaborative Filtering (matrix factorization) once the MongoDB database accumulates enough organic user rating data, providing the "best of both worlds".
 3. **Automated Retraining**: Implementing an Apache Airflow or Celery cron job to periodically fetch new movies from TMDB, append them to the dataset, and automatically regenerate the `.pkl` files without downtime.
-4. **Redis Caching**: Injecting Redis between the Node.js backend and Flask ML service to cache exact-match search results, reducing CPU cycles on the Python server for highly popular queries like "The Matrix".
+4. **Redis Caching**: Injecting Redis between the Node.js backend and Flask ML service to cache exact-match search results, reducing CPU cycles on the Python server for highly popular queries like "The Matrix" or "Yesterday".
 
 ---
 
@@ -415,7 +441,8 @@ MatchHub is built as an open-source educational portfolio project.
 - **Datasets**: 
   - Movie datasets provided by GroupLens Research (MovieLens / TMDB 5000).
   - Book datasets provided by the Book-Crossing community.
-- **Media Assets**: Movie poster imagery dynamically fetched and provided by [TheTVDB](https://thetvdb.com/). Book covers provided by the [Google Books API](https://developers.google.com/books) and [OpenLibrary](https://openlibrary.org/).
+  - Song datasets derived from the Last.fm / Million Song Dataset project.
+- **Media Assets**: Movie poster imagery dynamically fetched and provided by [TheTVDB](https://thetvdb.com/). Book covers provided by the [Google Books API](https://developers.google.com/books) and [OpenLibrary](https://openlibrary.org/). Song cover art provided by the [Apple iTunes Search API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/).
 - **License**: MIT License. You are free to use, modify, and distribute this software for non-commercial and educational purposes.
 
 ---

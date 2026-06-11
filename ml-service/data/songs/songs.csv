@@ -1,0 +1,451 @@
+songId,title,artist,album,year,genre,avg_rating,num_ratings
+song_0001,Yesterday,The Beatles,Help!,1965,Rock,4.3,290
+song_0002,Hey Jude,The Beatles,Single,1968,Rock,4.4,720
+song_0003,Let It Be,The Beatles,Let It Be,1970,Rock,4.2,141
+song_0004,Come Together,The Beatles,Abbey Road,1969,Rock,3.7,350
+song_0005,Here Comes the Sun,The Beatles,Abbey Road,1969,Rock,4.1,392
+song_0006,Something,The Beatles,Abbey Road,1969,Rock,4.2,683
+song_0007,Help!,The Beatles,Help!,1965,Rock,4.3,328
+song_0008,A Hard Day's Night,The Beatles,A Hard Day's Night,1964,Rock,4.7,511
+song_0009,Strawberry Fields Forever,The Beatles,Magical Mystery Tour,1967,Rock,4.6,405
+song_0010,Penny Lane,The Beatles,Magical Mystery Tour,1967,Rock,3.7,296
+song_0011,Eleanor Rigby,The Beatles,Revolver,1966,Rock,4.2,333
+song_0012,Yellow Submarine,The Beatles,Revolver,1966,Rock,4.1,767
+song_0013,In My Life,The Beatles,Rubber Soul,1965,Rock,3.5,494
+song_0014,Twist and Shout,The Beatles,Please Please Me,1963,Rock,4.2,701
+song_0015,All You Need Is Love,The Beatles,Magical Mystery Tour,1967,Rock,3.6,719
+song_0016,Thriller,Michael Jackson,Thriller,1982,Pop,3.9,209
+song_0017,Billie Jean,Michael Jackson,Thriller,1982,Pop,3.6,3105
+song_0018,Beat It,Michael Jackson,Thriller,1982,Pop,3.7,586
+song_0019,Smooth Criminal,Michael Jackson,Bad,1987,Pop,4.7,524
+song_0020,Bad,Michael Jackson,Bad,1987,Pop,3.6,666
+song_0021,Man in the Mirror,Michael Jackson,Bad,1987,Pop,3.7,186
+song_0022,Black or White,Michael Jackson,Dangerous,1991,Pop,3.5,620
+song_0023,Don't Stop 'Til You Get Enough,Michael Jackson,Off the Wall,1979,Pop,4.7,261
+song_0024,Rock with You,Michael Jackson,Off the Wall,1979,Pop,4.0,365
+song_0025,The Way You Make Me Feel,Michael Jackson,Bad,1987,Pop,3.6,359
+song_0026,Remember the Time,Michael Jackson,Dangerous,1991,Pop,3.8,474
+song_0027,Heal the World,Michael Jackson,Dangerous,1991,Pop,4.2,795
+song_0028,Wanna Be Startin' Somethin',Michael Jackson,Thriller,1982,Pop,3.5,225
+song_0029,Earth Song,Michael Jackson,HIStory,1995,Pop,4.0,581
+song_0030,You Are Not Alone,Michael Jackson,HIStory,1995,Pop,4.3,21
+song_0031,Bohemian Rhapsody,Queen,A Night at the Opera,1975,Rock,4.4,585
+song_0032,Don't Stop Me Now,Queen,Jazz,1978,Rock,4.2,496
+song_0033,We Will Rock You,Queen,News of the World,1977,Rock,4.7,749
+song_0034,We Are the Champions,Queen,News of the World,1977,Rock,4.0,221
+song_0035,Another One Bites the Dust,Queen,The Game,1980,Rock,4.6,289
+song_0036,Under Pressure,Queen,Hot Space,1981,Rock,4.4,290
+song_0037,Somebody to Love,Queen,A Day at the Races,1976,Rock,3.6,746
+song_0038,Killer Queen,Queen,Sheer Heart Attack,1974,Rock,4.1,721
+song_0039,Radio Ga Ga,Queen,The Works,1984,Rock,3.9,739
+song_0040,I Want to Break Free,Queen,The Works,1984,Rock,4.4,72
+song_0041,Crazy Little Thing Called Love,Queen,The Game,1980,Rock,4.2,236
+song_0042,The Show Must Go On,Queen,Innuendo,1991,Rock,3.8,399
+song_0043,Love of My Life,Queen,A Night at the Opera,1975,Rock,3.8,176
+song_0044,Fat Bottomed Girls,Queen,Jazz,1978,Rock,4.5,84
+song_0045,Who Wants to Live Forever,Queen,A Kind of Magic,1986,Rock,3.5,540
+song_0046,Love Story,Taylor Swift,Fearless,2008,Pop,4.4,667
+song_0047,You Belong With Me,Taylor Swift,Fearless,2008,Pop,3.5,158
+song_0048,Blank Space,Taylor Swift,1989,2014,Pop,3.7,411
+song_0049,Shake It Off,Taylor Swift,1989,2014,Pop,4.4,308
+song_0050,Cardigan,Taylor Swift,Folklore,2020,Pop,4.2,509
+song_0051,Willow,Taylor Swift,Evermore,2020,Pop,3.9,60
+song_0052,Anti-Hero,Taylor Swift,Midnights,2022,Pop,4.6,220
+song_0053,Cruel Summer,Taylor Swift,Lover,2019,Pop,4.2,52
+song_0054,Lover,Taylor Swift,Lover,2019,Pop,3.6,426
+song_0055,All Too Well,Taylor Swift,Red,2012,Pop,4.3,118
+song_0056,Style,Taylor Swift,1989,2014,Pop,4.2,745
+song_0057,Delicate,Taylor Swift,Reputation,2017,Pop,4.6,758
+song_0058,Bad Blood,Taylor Swift,1989,2014,Pop,3.6,481
+song_0059,Look What You Made Me Do,Taylor Swift,Reputation,2017,Pop,4.5,24
+song_0060,Fortnight,Taylor Swift,The Tortured Poets Department,2024,Pop,4.2,786
+song_0061,Lose Yourself,Eminem,8 Mile Soundtrack,2002,Hip-Hop,3.8,412
+song_0062,Without Me,Eminem,The Eminem Show,2002,Hip-Hop,4.4,573
+song_0063,The Real Slim Shady,Eminem,The Marshall Mathers LP,2000,Hip-Hop,4.0,710
+song_0064,Stan,Eminem,The Marshall Mathers LP,2000,Hip-Hop,3.5,762
+song_0065,Love the Way You Lie,Eminem,Recovery,2010,Hip-Hop,4.1,115
+song_0066,Not Afraid,Eminem,Recovery,2010,Hip-Hop,4.3,504
+song_0067,Mockingbird,Eminem,Encore,2004,Hip-Hop,3.8,768
+song_0068,Rap God,Eminem,The Marshall Mathers LP 2,2013,Hip-Hop,4.1,560
+song_0069,Till I Collapse,Eminem,The Eminem Show,2002,Hip-Hop,3.8,179
+song_0070,When I'm Gone,Eminem,Curtain Call: The Hits,2005,Hip-Hop,4.2,262
+song_0071,Cleanin' Out My Closet,Eminem,The Eminem Show,2002,Hip-Hop,3.7,597
+song_0072,Like Toy Soldiers,Eminem,Encore,2004,Hip-Hop,4.2,593
+song_0073,My Name Is,Eminem,The Slim Shady LP,1999,Hip-Hop,4.3,665
+song_0074,The Monster,Eminem,The Marshall Mathers LP 2,2013,Hip-Hop,4.0,639
+song_0075,Sing for the Moment,Eminem,The Eminem Show,2002,Hip-Hop,3.7,350
+song_0076,Yellow,Coldplay,Parachutes,2000,Alternative,3.9,367
+song_0077,Clocks,Coldplay,A Rush of Blood to the Head,2002,Alternative,3.9,209
+song_0078,The Scientist,Coldplay,A Rush of Blood to the Head,2002,Alternative,3.6,396
+song_0079,Viva la Vida,Coldplay,Viva la Vida or Death and All His Friends,2008,Alternative,4.3,652
+song_0080,Fix You,Coldplay,X&Y,2005,Alternative,4.5,764
+song_0081,Paradise,Coldplay,Mylo Xyloto,2011,Alternative,3.9,729
+song_0082,Adventure of a Lifetime,Coldplay,A Head Full of Dreams,2015,Alternative,4.1,668
+song_0083,A Sky Full of Stars,Coldplay,Ghost Stories,2014,Alternative,4.1,244
+song_0084,Hymn for the Weekend,Coldplay,A Head Full of Dreams,2015,Alternative,3.6,703
+song_0085,Sparks,Coldplay,Parachutes,2000,Alternative,3.8,393
+song_0086,Speed of Sound,Coldplay,X&Y,2005,Alternative,3.8,491
+song_0087,Magic,Coldplay,Ghost Stories,2014,Alternative,4.3,132
+song_0088,In My Place,Coldplay,A Rush of Blood to the Head,2002,Alternative,3.6,461
+song_0089,Every Teardrop Is a Waterfall,Coldplay,Mylo Xyloto,2011,Alternative,4.7,529
+song_0090,Violet Hill,Coldplay,Viva la Vida,2008,Alternative,4.3,406
+song_0091,Blinding Lights,The Weeknd,After Hours,2020,R&B,3.9,3796
+song_0092,Starboy,The Weeknd,Starboy,2016,R&B,4.7,718
+song_0093,The Hills,The Weeknd,Beauty Behind the Madness,2015,R&B,4.2,661
+song_0094,Can't Feel My Face,The Weeknd,Beauty Behind the Madness,2015,R&B,4.0,755
+song_0095,Save Your Tears,The Weeknd,After Hours,2020,R&B,4.6,422
+song_0096,Die for You,The Weeknd,Starboy,2016,R&B,4.3,72
+song_0097,Call Out My Name,The Weeknd,"My Dear Melancholy,",2018,R&B,4.1,691
+song_0098,I Feel It Coming,The Weeknd,Starboy,2016,R&B,4.2,266
+song_0099,Earned It,The Weeknd,Beauty Behind the Madness,2015,R&B,4.3,222
+song_0100,Heartless,The Weeknd,After Hours,2020,R&B,3.9,420
+song_0101,Wicked Games,The Weeknd,House of Balloons,2011,R&B,4.4,299
+song_0102,In Your Eyes,The Weeknd,After Hours,2020,R&B,4.1,629
+song_0103,After Hours,The Weeknd,After Hours,2020,R&B,4.3,530
+song_0104,Often,The Weeknd,Beauty Behind the Madness,2015,R&B,3.6,628
+song_0105,Out of Time,The Weeknd,Dawn FM,2022,R&B,3.7,206
+song_0106,Bad Guy,Billie Eilish,"When We All Fall Asleep, Where Do We Go?",2019,Pop,3.7,368
+song_0107,Ocean Eyes,Billie Eilish,Don't Smile at Me,2016,Pop,4.5,783
+song_0108,Lovely,Billie Eilish,13 Reasons Why Soundtrack,2018,Pop,4.3,422
+song_0109,When the Party's Over,Billie Eilish,"When We All Fall Asleep, Where Do We Go?",2018,Pop,4.4,530
+song_0110,Everything I Wanted,Billie Eilish,Single,2019,Pop,3.8,730
+song_0111,Happier Than Ever,Billie Eilish,Happier Than Ever,20215,Pop,3.7,659
+song_0112,No Time to Die,Billie Eilish,No Time to Die Soundtrack,2020,Pop,4.1,660
+song_0113,What Was I Made For?,Billie Eilish,Barbie Soundtrack,2023,Pop,4.3,492
+song_0114,Bury a Friend,Billie Eilish,"When We All Fall Asleep, Where Do We Go?",2019,Pop,3.8,434
+song_0115,Wish You Were Gay,Billie Eilish,"When We All Fall Asleep, Where Do We Go?",2019,Pop,4.6,630
+song_0116,Idontwannabeyouanymore,Billie Eilish,Don't Smile at Me,2017,Pop,3.8,163
+song_0117,Bellyache,Billie Eilish,Don't Smile at Me,2017,Pop,4.5,591
+song_0118,My Future,Billie Eilish,Happier Than Ever,2020,Pop,3.8,323
+song_0119,Therefore I Am,Billie Eilish,Happier Than Ever,2020,Pop,4.7,472
+song_0120,Lunch,Billie Eilish,Hit Me Hard and Soft,2024,Pop,4.6,28
+song_0121,God's Plan,Drake,Scorpion,2018,Hip-Hop,3.8,678
+song_0122,One Dance,Drake,Views,2016,Hip-Hop,4.4,150
+song_0123,Hotline Bling,Drake,Views,2016,Hip-Hop,4.5,73
+song_0124,In My Feelings,Drake,Scorpion,2018,Hip-Hop,4.4,647
+song_0125,Nice for What,Drake,Scorpion,2018,Hip-Hop,3.6,439
+song_0126,Passionfruit,Drake,More Life,2017,Hip-Hop,4.6,273
+song_0127,Work,Drake,Anti,2016,Hip-Hop,3.5,529
+song_0128,Nonstop,Drake,Scorpion,2018,Hip-Hop,4.6,172
+song_0129,Started from the Bottom,Drake,Nothing Was the Same,2013,Hip-Hop,3.5,357
+song_0130,"Hold On, We're Going Home",Drake,Nothing Was the Same,2013,Hip-Hop,4.1,182
+song_0131,Marvins Room,Drake,Take Care,2011,Hip-Hop,4.3,700
+song_0132,Best I Ever Had,Drake,So Far Gone,2009,Hip-Hop,3.7,599
+song_0133,Headlines,Drake,Take Care,2011,Hip-Hop,3.8,296
+song_0134,Laugh Now Cry Later,Drake,Single,2020,Hip-Hop,3.7,523
+song_0135,Rich Baby Daddy,Drake,For All The Dogs,2023,Hip-Hop,4.3,154
+song_0136,Rolling in the Deep,Adele,21,2010,Pop,4.4,659
+song_0137,Someone Like You,Adele,21,2011,Pop,4.2,479
+song_0138,Hello,Adele,25,2015,Pop,4.1,489
+song_0139,Set Fire to the Rain,Adele,21,2011,Pop,3.8,769
+song_0140,Easy on Me,Adele,30,2021,Pop,4.2,249
+song_0141,When We Were Young,Adele,25,2015,Pop,4.0,457
+song_0142,Send My Love (To Your New Lover),Adele,25,2015,Pop,4.6,46
+song_0143,Skyfall,Adele,Skyfall Soundtrack,2012,Pop,4.5,628
+song_0144,Chasing Pavements,Adele,19,2008,Pop,4.2,500
+song_0145,Rumour Has It,Adele,21,2011,Pop,3.7,678
+song_0146,Turning Tables,Adele,21,2011,Pop,4.2,211
+song_0147,Make You Feel My Love,Adele,19,2008,Pop,4.3,36
+song_0148,Water Under the Bridge,Adele,25,2015,Pop,4.7,177
+song_0149,Oh My God,Adele,30,2021,Pop,4.6,392
+song_0150,Hometown Glory,Adele,19,2007,Pop,4.6,764
+song_0151,Just the Way You Are,Bruno Mars,Doo-Wops & Hooligans,2010,Pop,4.6,368
+song_0152,Grenade,Bruno Mars,Doo-Wops & Hooligans,2010,Pop,4.0,200
+song_0153,Uptown Funk,Bruno Mars,Uptown Special,2014,Pop,4.2,719
+song_0154,Locked Out of Heaven,Bruno Mars,Unorthodox Jukebox,2012,Pop,4.5,210
+song_0155,24K Magic,Bruno Mars,24K Magic,2016,Pop,3.9,180
+song_0156,That's What I Like,Bruno Mars,24K Magic,2016,Pop,3.9,147
+song_0157,Versace on the Floor,Bruno Mars,24K Magic,2016,Pop,3.9,754
+song_0158,When I Was Your Man,Bruno Mars,Unorthodox Jukebox,2012,Pop,4.5,342
+song_0159,Treasure,Bruno Mars,Unorthodox Jukebox,2012,Pop,4.2,645
+song_0160,Marry You,Bruno Mars,Doo-Wops & Hooligans,2010,Pop,4.2,682
+song_0161,Talking to the Moon,Bruno Mars,Doo-Wops & Hooligans,2010,Pop,3.7,174
+song_0162,Leave the Door Open,Bruno Mars,An Evening with Silk Sonic,2021,Pop,3.9,123
+song_0163,Smoking Out The Window,Bruno Mars,An Evening with Silk Sonic,2021,Pop,4.3,265
+song_0164,It Will Rain,Bruno Mars,Twilight Saga Soundtrack,2011,Pop,3.9,496
+song_0165,Count On Me,Bruno Mars,Doo-Wops & Hooligans,2010,Pop,3.9,557
+song_0166,Stairway to Heaven,Led Zeppelin,Led Zeppelin IV,1971,Rock,4.7,427
+song_0167,Whole Lotta Love,Led Zeppelin,Led Zeppelin II,1969,Rock,4.6,525
+song_0168,Kashmir,Led Zeppelin,Physical Graffiti,1975,Rock,3.5,55
+song_0169,Black Dog,Led Zeppelin,Led Zeppelin IV,1971,Rock,4.5,340
+song_0170,Ramble On,Led Zeppelin,Led Zeppelin II,1969,Rock,3.6,419
+song_0171,Immigrant Song,Led Zeppelin,Led Zeppelin III,1970,Rock,3.6,490
+song_0172,Rock and Roll,Led Zeppelin,Led Zeppelin IV,1971,Rock,3.5,373
+song_0173,Over the Hills and Far Away,Led Zeppelin,Houses of the Holy,1973,Rock,3.6,746
+song_0174,Dazed and Confused,Led Zeppelin,Led Zeppelin,1969,Rock,4.3,70
+song_0175,Babe I'm Gonna Leave You,Led Zeppelin,Led Zeppelin,1969,Rock,4.1,594
+song_0176,Good Times Bad Times,Led Zeppelin,Led Zeppelin,1969,Rock,4.7,169
+song_0177,Since I've Been Loving You,Led Zeppelin,Led Zeppelin III,1970,Rock,4.2,361
+song_0178,Going to California,Led Zeppelin,Led Zeppelin IV,1971,Rock,3.8,701
+song_0179,Communication Breakdown,Led Zeppelin,Led Zeppelin,1969,Rock,4.5,73
+song_0180,Heartbreaker,Led Zeppelin,Led Zeppelin II,1969,Rock,4.1,632
+song_0181,Another Brick in the Wall (Part 2),Pink Floyd,The Wall,1979,Rock,4.1,72
+song_0182,Wish You Were Here,Pink Floyd,Wish You Were Here,1975,Rock,3.8,639
+song_0183,Comfortably Numb,Pink Floyd,The Wall,1979,Rock,4.2,215
+song_0184,Time,Pink Floyd,The Dark Side of the Moon,1973,Rock,4.5,369
+song_0185,Money,Pink Floyd,The Dark Side of the Moon,1973,Rock,4.1,675
+song_0186,Breathe (In the Air),Pink Floyd,The Dark Side of the Moon,1973,Rock,4.7,655
+song_0187,Hey You,Pink Floyd,The Wall,1979,Rock,4.4,678
+song_0188,Shine On You Crazy Diamond,Pink Floyd,Wish You Were Here,1975,Rock,4.5,623
+song_0189,Us and Them,Pink Floyd,The Dark Side of the Moon,1973,Rock,4.4,365
+song_0190,Brain Damage,Pink Floyd,The Dark Side of the Moon,1973,Rock,3.5,136
+song_0191,Eclipse,Pink Floyd,The Dark Side of the Moon,1973,Rock,3.6,146
+song_0192,Mother,Pink Floyd,The Wall,1979,Rock,4.3,660
+song_0193,Have a Cigar,Pink Floyd,Wish You Were Here,1975,Rock,3.7,532
+song_0194,Learning to Fly,Pink Floyd,A Momentary Lapse of Reason,1987,Rock,4.0,115
+song_0195,Run Like Hell,Pink Floyd,The Wall,1979,Rock,4.2,579
+song_0196,Get Lucky,Daft Punk,Random Access Memories,2013,Electronic,3.7,256
+song_0197,One More Time,Daft Punk,Discovery,2000,Electronic,3.8,291
+song_0198,Around the World,Daft Punk,Homework,1997,Electronic,4.1,723
+song_0199,Harder Better Faster Stronger,Daft Punk,Discovery,2001,Electronic,4.2,266
+song_0200,Instant Crush,Daft Punk,Random Access Memories,2013,Electronic,3.6,173
+song_0201,Lose Yourself to Dance,Daft Punk,Random Access Memories,2013,Electronic,3.9,105
+song_0202,Technologic,Daft Punk,Human After All,2005,Electronic,3.5,239
+song_0203,Digital Love,Daft Punk,Discovery,2001,Electronic,3.6,113
+song_0204,Da Funk,Daft Punk,Homework,1995,Electronic,4.5,472
+song_0205,Something About Us,Daft Punk,Discovery,2001,Electronic,4.1,237
+song_0206,Give Life Back to Music,Daft Punk,Random Access Memories,2013,Electronic,4.4,360
+song_0207,Giorgio by Moroder,Daft Punk,Random Access Memories,2013,Electronic,4.1,308
+song_0208,Face to Face,Daft Punk,Discovery,2003,Electronic,4.1,376
+song_0209,Television Rules the Nation,Daft Punk,Human After All,2005,Electronic,4.0,541
+song_0210,Veridis Quo,Daft Punk,Discovery,2001,Electronic,4.6,119
+song_0211,Smells Like Teen Spirit,Nirvana,Nevermind,1991,Rock,3.6,242
+song_0212,Come as You Are,Nirvana,Nevermind,1991,Rock,3.5,678
+song_0213,Lithium,Nirvana,Nevermind,1991,Rock,4.1,788
+song_0214,Heart-Shaped Box,Nirvana,In Utero,1993,Rock,4.1,4711
+song_0215,About a Girl,Nirvana,Bleach,1989,Rock,4.2,355
+song_0216,In Bloom,Nirvana,Nevermind,1991,Rock,4.3,516
+song_0217,The Man Who Sold the World,Nirvana,MTV Unplugged in New York,1994,Rock,4.5,179
+song_0218,All Apologies,Nirvana,In Utero,1993,Rock,4.6,683
+song_0219,Dumb,Nirvana,In Utero,1993,Rock,4.3,694
+song_0220,Rape Me,Nirvana,In Utero,1993,Rock,4.3,710
+song_0221,Pennyroyal Tea,Nirvana,In Utero,1993,Rock,4.5,287
+song_0222,Polly,Nirvana,Nevermind,1991,Rock,4.0,436
+song_0223,Drain You,Nirvana,Nevermind,1991,Rock,4.3,62
+song_0224,Breed,Nirvana,Nevermind,1991,Rock,3.7,416
+song_0225,Something in the Way,Nirvana,Nevermind,1991,Rock,3.8,321
+song_0226,Single Ladies (Put a Ring on It),Beyoncé,I Am... Sasha Fierce,2008,Pop,3.5,518
+song_0227,Halo,Beyoncé,I Am... Sasha Fierce,2008,Pop,4.2,746
+song_0228,Crazy in Love,Beyoncé,Dangerously in Love,2003,Pop,3.6,795
+song_0229,Irreplaceable,Beyoncé,B'Day,2006,Pop,4.0,621
+song_0230,Love On Top,Beyoncé,4,2011,Pop,3.9,134
+song_0231,Formation,Beyoncé,Lemonade,2016,Pop,3.8,215
+song_0232,Drunk in Love,Beyoncé,Beyoncé,2013,Pop,4.3,645
+song_0233,Run the World (Girls),Beyoncé,4,2011,Pop,4.3,432
+song_0234,Texas Hold 'Em,Beyoncé,Cowboy Carter,2024,Pop,3.5,748
+song_0235,Cuff It,Beyoncé,Renaissance,2022,Pop,4.5,780
+song_0236,Sweet Dreams,Beyoncé,I Am... Sasha Fierce,2008,Pop,4.2,476
+song_0237,Partition,Beyoncé,Beyoncé,2013,Pop,4.2,758
+song_0238,If I Were a Boy,Beyoncé,I Am... Sasha Fierce,2008,Pop,4.7,567
+song_0239,Sorry,Beyoncé,Lemonade,2016,Pop,3.9,115
+song_0240,Break My Soul,Beyoncé,Renaissance,2022,Pop,3.9,209
+song_0241,Umbrella,Rihanna,Good Girl Gone Bad,2007,Pop,4.2,799
+song_0242,Diamonds,Rihanna,Unapologetic,2012,Pop,4.0,544
+song_0243,We Found Love,Rihanna,Talk That Talk,2011,Pop,4.4,292
+song_0244,Stay,Rihanna,Unapologetic,2012,Pop,4.1,615
+song_0245,Work,Rihanna,Anti,2016,Pop,4.5,361
+song_0246,Don't Stop the Music,Rihanna,Good Girl Gone Bad,2007,Pop,3.9,38
+song_0247,Only Girl (In the World),Rihanna,Loud,2010,Pop,4.0,415
+song_0248,Rude Boy,Rihanna,Rated R,2009,Pop,4.7,95
+song_0249,Love on the Brain,Rihanna,Anti,2016,Pop,3.9,737
+song_0250,Disturbia,Rihanna,Good Girl Gone Bad: Reloaded,2008,Pop,4.3,583
+song_0251,What's My Name?,Rihanna,Loud,2010,Pop,4.2,386
+song_0252,S&M,Rihanna,Loud,2010,Pop,3.6,88
+song_0253,Pon de Replay,Rihanna,Music of the Sun,2005,Pop,3.9,44
+song_0254,SOS,Rihanna,A Girl like Me,2006,Pop,4.2,488
+song_0255,Take a Bow,Rihanna,Good Girl Gone Bad: Reloaded,2008,Pop,4.4,170
+song_0256,Sugar,Maroon 5,V,2014,Pop,4.4,58
+song_0257,Girls Like You,Maroon 5,Red Pill Blues,2017,Pop,3.6,61
+song_0258,She Will Be Loved,Maroon 5,Songs About Jane,2002,Pop,4.7,417
+song_0259,Moves Like Jagger,Maroon 5,Hands All Over,2011,Pop,4.2,152
+song_0260,Payphone,Maroon 5,Overexposed,2012,Pop,4.4,752
+song_0261,Maps,Maroon 5,V,2014,Pop,3.9,677
+song_0262,Animals,Maroon 5,V,2014,Pop,4.7,28
+song_0263,Misery,Maroon 5,Hands All Over,2010,Pop,4.4,511
+song_0264,Sunday Morning,Maroon 5,Songs About Jane,2002,Pop,4.5,249
+song_0265,This Love,Maroon 5,Songs About Jane,2002,Pop,3.6,672
+song_0266,One More Night,Maroon 5,Overexposed,2012,Pop,3.8,412
+song_0267,Cold,Maroon 5,Red Pill Blues,2017,Pop,4.5,653
+song_0268,What Lovers Do,Maroon 5,Red Pill Blues,2017,Pop,3.7,48
+song_0269,Memories,Maroon 5,Single,2019,Pop,3.6,358
+song_0270,Makes Me Wonder,Maroon 5,It Won't Be Soon Before Long,2007,Pop,4.2,384
+song_0271,Enter Sandman,Metallica,Metallica (Black Album),1991,Metal,3.9,519
+song_0272,Nothing Else Matters,Metallica,Metallica (Black Album),1991,Metal,3.8,346
+song_0273,One,Metallica,...And Justice for All,1988,Metal,4.7,151
+song_0274,Master of Puppets,Metallica,Master of Puppets,1986,Metal,3.9,271
+song_0275,The Unforgiven,Metallica,Metallica (Black Album),1991,Metal,3.6,464
+song_0276,Sad but True,Metallica,Metallica (Black Album),1991,Metal,4.0,186
+song_0277,Fade to Black,Metallica,Ride the Lightning,1984,Metal,4.0,550
+song_0278,For Whom the Bell Tolls,Metallica,Ride the Lightning,1984,Metal,3.6,470
+song_0279,Seek & Destroy,Metallica,Kill 'Em All,1983,Metal,3.8,773
+song_0280,Whiskey in the Jar,Metallica,Garage Inc.,1998,Metal,4.1,77
+song_0281,Creeping Death,Metallica,Ride the Lightning,1984,Metal,4.4,475
+song_0282,Battery,Metallica,Master of Puppets,1986,Metal,3.6,380
+song_0283,Wherever I May Roam,Metallica,Metallica (Black Album),1991,Metal,4.4,406
+song_0284,The Memory Remains,Metallica,Reload,1997,Metal,4.2,209
+song_0285,Fuel,Metallica,Reload,1997,Metal,4.0,527
+song_0286,Wake Me Up,Avicii,True,2013,Electronic,3.8,136
+song_0287,Levels,Avicii,Single,2011,Electronic,4.7,575
+song_0288,The Nights,Avicii,The Days / Nights EP,2014,Electronic,4.7,192
+song_0289,Hey Brother,Avicii,True,2013,Electronic,3.6,168
+song_0290,Waiting for Love,Avicii,Stories,2015,Electronic,3.6,232
+song_0291,Without You,Avicii,Avîci (01),2017,Electronic,4.7,248
+song_0292,Addicted to You,Avicii,True,2013,Electronic,3.8,678
+song_0293,The Days,Avicii,The Days / Nights EP,2014,Electronic,4.7,421
+song_0294,I Could Be the One,Avicii,Single,2012,Electronic,3.7,324
+song_0295,You Make Me,Avicii,True,2013,Electronic,4.3,434
+song_0296,Silhouettes,Avicii,Single,2012,Electronic,4.7,585
+song_0297,Broken Arrows,Avicii,Stories,2015,Electronic,4.2,675
+song_0298,SOS,Avicii,Tim,2019,Electronic,4.4,31
+song_0299,Heaven,Avicii,Tim,2019,Electronic,4.7,377
+song_0300,Lonely Together,Avicii,Avîci (01),2017,Electronic,4.0,687
+song_0301,Time,Hans Zimmer,Inception Soundtrack,2010,Soundtrack,3.9,141
+song_0302,Cornfield Chase,Hans Zimmer,Interstellar Soundtrack,2014,Soundtrack,3.7,109
+song_0303,He's a Pirate,Hans Zimmer,Pirates of the Caribbean Soundtrack,2003,Soundtrack,4.0,335
+song_0304,Stay,Hans Zimmer,Interstellar Soundtrack,2014,Soundtrack,4.2,751
+song_0305,Interstellar Theme,Hans Zimmer,Interstellar Soundtrack,2014,Soundtrack,3.9,759
+song_0306,Gladiator Theme,Hans Zimmer,Gladiator Soundtrack,2000,Soundtrack,4.7,521
+song_0307,The Dark Knight Suite,Hans Zimmer,The Dark Knight Soundtrack,2008,Soundtrack,3.5,220
+song_0308,This Land,Hans Zimmer,The Lion King Soundtrack,1994,Soundtrack,3.9,743
+song_0309,Dream Is Collapsing,Hans Zimmer,Inception Soundtrack,2010,Soundtrack,4.2,771
+song_0310,Mombasa,Hans Zimmer,Inception Soundtrack,2010,Soundtrack,3.7,577
+song_0311,Now We Are Free,Hans Zimmer,Gladiator Soundtrack,2000,Soundtrack,3.6,409
+song_0312,Supermarine,Hans Zimmer,Dunkirk Soundtrack,2017,Soundtrack,4.6,275
+song_0313,No Time for Caution,Hans Zimmer,Interstellar Soundtrack,2014,Soundtrack,4.2,469
+song_0314,Flight,Hans Zimmer,Man of Steel Soundtrack,2013,Soundtrack,3.6,261
+song_0315,S.T.A.Y.,Hans Zimmer,Interstellar Soundtrack,2014,Soundtrack,4.2,24
+song_0316,So What,Miles Davis,Kind of Blue,1959,Jazz,3.5,393
+song_0317,Blue in Green,Miles Davis,Kind of Blue,1959,Jazz,4.5,243
+song_0318,Freddie Freeloader,Miles Davis,Kind of Blue,1959,Jazz,4.7,798
+song_0319,All Blues,Miles Davis,Kind of Blue,1959,Jazz,4.2,82
+song_0320,Flamenco Sketches,Miles Davis,Kind of Blue,1959,Jazz,4.0,708
+song_0321,Milestones,Miles Davis,Milestones,1958,Jazz,4.5,629
+song_0322,Round Midnight,Miles Davis,Round About Midnight,1957,Jazz,3.5,530
+song_0323,My Funny Valentine,Miles Davis,Cookin',1957,Jazz,3.8,537
+song_0324,Summertime,Miles Davis,Porgy and Bess,1959,Jazz,4.3,728
+song_0325,Autumn Leaves,Miles Davis,Somethin' Else,1958,Jazz,4.7,790
+song_0326,Generique,Miles Davis,Ascenseur pour l'echafaud,1958,Jazz,4.2,584
+song_0327,Stella by Starlight,Miles Davis,58 Miles,1958,Jazz,4.6,477
+song_0328,Seven Steps to Heaven,Miles Davis,Seven Steps to Heaven,1963,Jazz,4.0,104
+song_0329,Bitches Brew,Miles Davis,Bitches Brew,1970,Jazz,4.0,20
+song_0330,TuTu,Miles Davis,Tutu,1986,Jazz,4.6,736
+song_0331,I Walk the Line,Johnny Cash,With His Hot and Blue Guitar,1956,Country,3.7,468
+song_0332,Ring of Fire,Johnny Cash,Ring of Fire The Best of Johnny Cash,1963,Country,4.3,53
+song_0333,Folsom Prison Blues,Johnny Cash,With His Hot and Blue Guitar,1956,Country,3.9,91
+song_0334,Hurt,Johnny Cash,American IV: The Man Comes Around,2002,Country,3.5,269
+song_0335,Man in Black,Johnny Cash,Man in Black,1971,Country,4.1,137
+song_0336,Boy Named Sue,Johnny Cash,At San Quentin,1969,Country,4.5,325
+song_0337,Get Rhythm,Johnny Cash,With His Hot and Blue Guitar,1956,Country,4.5,73
+song_0338,Cry! Cry! Cry!,Johnny Cash,With His Hot and Blue Guitar,1955,Country,4.7,753
+song_0339,Sunday Morning Coming Down,Johnny Cash,The Johnny Cash Show,1970,Country,4.5,420
+song_0340,Cocaine Blues,Johnny Cash,At Folsom Prison,1968,Country,3.7,322
+song_0341,God's Gonna Cut You Down,Johnny Cash,American V: A Hundred Highways,2006,Country,4.0,248
+song_0342,The Man Comes Around,Johnny Cash,American IV: The Man Comes Around,2002,Country,4.2,597
+song_0343,Jackson,Johnny Cash,Carryin' On with Johnny Cash and June Carter,1967,Country,4.5,122
+song_0344,Ghost Riders in the Sky,Johnny Cash,Silver,1979,Country,3.7,783
+song_0345,Give My Love to Rose,Johnny Cash,Sings Hank Williams,1957,Country,4.7,325
+song_0346,Stronger,Kanye West,Graduation,2007,Hip-Hop,4.2,354
+song_0347,Gold Digger,Kanye West,Late Registration,2005,Hip-Hop,4.0,466
+song_0348,Heartless,Kanye West,808s & Heartbreak,2008,Hip-Hop,4.4,268
+song_0349,Runaway,Kanye West,My Beautiful Dark Twisted Fantasy,2010,Hip-Hop,4.1,354
+song_0350,Power,Kanye West,My Beautiful Dark Twisted Fantasy,2010,Hip-Hop,4.0,778
+song_0351,All of the Lights,Kanye West,My Beautiful Dark Twisted Fantasy,2010,Hip-Hop,4.1,100
+song_0352,Flashing Lights,Kanye West,Graduation,2007,Hip-Hop,4.6,157
+song_0353,Bound 2,Kanye West,Yeezus,2013,Hip-Hop,4.6,349
+song_0354,Can't Tell Me Nothing,Kanye West,Graduation,2007,Hip-Hop,4.4,88
+song_0355,Father Stretch My Hands Pt. 1,Kanye West,The Life of Pablo,2016,Hip-Hop,4.7,72
+song_0356,Through the Wire,Kanye West,The College Dropout,2004,Hip-Hop,3.9,145
+song_0357,Jesus Walks,Kanye West,The College Dropout,2004,Hip-Hop,4.3,771
+song_0358,Black Skinhead,Kanye West,Yeezus,2013,Hip-Hop,3.9,130
+song_0359,Ultralight Beam,Kanye West,The Life of Pablo,2016,Hip-Hop,3.7,202
+song_0360,Carnival,Kanye West,Vultures 1,2024,Hip-Hop,4.2,393
+song_0361,HUMBLE.,Kendrick Lamar,DAMN.,2017,Hip-Hop,4.3,379
+song_0362,DNA.,Kendrick Lamar,DAMN.,2017,Hip-Hop,4.3,300
+song_0363,Alright,Kendrick Lamar,To Pimp a Butterfly,2015,Hip-Hop,4.6,214
+song_0364,Money Trees,Kendrick Lamar,"Good Kid, M.A.A.D City",2012,Hip-Hop,4.1,691
+song_0365,Swimming Pools (Drank),Kendrick Lamar,"Good Kid, M.A.A.D City",2012,Hip-Hop,3.7,653
+song_0366,King Kunta,Kendrick Lamar,To Pimp a Butterfly,2015,Hip-Hop,3.8,24
+song_0367,"Bitch, Don't Kill My Vibe",Kendrick Lamar,"Good Kid, M.A.A.D City",2012,Hip-Hop,3.9,701
+song_0368,Poetic Justice,Kendrick Lamar,"Good Kid, M.A.A.D City",2012,Hip-Hop,3.7,424
+song_0369,LOVE.,Kendrick Lamar,DAMN.,2017,Hip-Hop,4.2,664
+song_0370,Not Like Us,Kendrick Lamar,Single,2024,Hip-Hop,4.1,365
+song_0371,m.A.A.d city,Kendrick Lamar,"Good Kid, M.A.A.D City",2012,Hip-Hop,4.6,97
+song_0372,The Blacker the Berry,Kendrick Lamar,To Pimp a Butterfly,2015,Hip-Hop,3.9,92
+song_0373,DNA,Kendrick Lamar,DAMN.,2017,Hip-Hop,3.6,66
+song_0374,All The Stars,Kendrick Lamar,Black Panther Soundtrack,2018,Hip-Hop,4.3,258
+song_0375,ELEMENT.,Kendrick Lamar,DAMN.,2017,Hip-Hop,4.1,126
+song_0376,In the End,Linkin Park,Hybrid Theory,2000,Rock,4.6,592
+song_0377,Numb,Linkin Park,Meteora,2003,Rock,3.5,276
+song_0378,Crawling,Linkin Park,Hybrid Theory,2000,Rock,3.6,272
+song_0379,Faint,Linkin Park,Meteora,2003,Rock,4.7,322
+song_0380,Breaking the Habit,Linkin Park,Meteora,2003,Rock,3.9,745
+song_0381,What I've Done,Linkin Park,Minutes to Midnight,2007,Rock,3.8,47
+song_0382,One Step Closer,Linkin Park,Hybrid Theory,2000,Rock,3.9,235
+song_0383,Waiting for the End,Linkin Park,A Thousand Suns,2010,Rock,4.4,685
+song_0384,Burn It Down,Linkin Park,Living Things,2012,Rock,3.5,331
+song_0385,Castle of Glass,Linkin Park,Living Things,2012,Rock,3.7,22
+song_0386,Bleed It Out,Linkin Park,Minutes to Midnight,2007,Rock,4.6,769
+song_0387,Papercut,Linkin Park,Hybrid Theory,2000,Rock,4.4,527
+song_0388,Somewhere I Belong,Linkin Park,Meteora,2003,Rock,3.6,525
+song_0389,Shadow of the Day,Linkin Park,Minutes to Midnight,2007,Rock,3.9,34
+song_0390,Leave Out All the Rest,Linkin Park,Minutes to Midnight,2007,Rock,3.6,650
+song_0391,Sweet Child O' Mine,Guns N' Roses,Appetite for Destruction,1987,Rock,4.0,733
+song_0392,Welcome to the Jungle,Guns N' Roses,Appetite for Destruction,1987,Rock,4.2,292
+song_0393,Paradise City,Guns N' Roses,Appetite for Destruction,1987,Rock,3.8,493
+song_0394,November Rain,Guns N' Roses,Use Your Illusion I,1991,Rock,4.1,556
+song_0395,Don't Cry,Guns N' Roses,Use Your Illusion I,1991,Rock,4.6,231
+song_0396,Patience,Guns N' Roses,G N' R Lies,1988,Rock,4.1,413
+song_0397,Knockin' on Heaven's Door,Guns N' Roses,Use Your Illusion II,1991,Rock,4.4,128
+song_0398,Civil War,Guns N' Roses,Use Your Illusion II,1991,Rock,4.1,247
+song_0399,Estranged,Guns N' Roses,Use Your Illusion II,1991,Rock,4.1,53
+song_0400,Live and Let Die,Guns N' Roses,Use Your Illusion I,1991,Rock,4.2,388
+song_0401,Nightrain,Guns N' Roses,Appetite for Destruction,1987,Rock,4.2,573
+song_0402,Mr. Brownstone,Guns N' Roses,Appetite for Destruction,1987,Rock,3.8,537
+song_0403,You Could Be Mine,Guns N' Roses,Use Your Illusion II,1991,Rock,4.6,339
+song_0404,Rocket Queen,Guns N' Roses,Appetite for Destruction,1987,Rock,4.2,334
+song_0405,Yesterday (GN'R),Guns N' Roses,Use Your Illusion II,1991,Rock,4.9,760
+song_0406,Shape of You,Ed Sheeran,Divide,2017,Pop,4.6,1560
+song_0407,Perfect,Ed Sheeran,Divide,2017,Pop,3.6,729
+song_0408,Thinking Out Loud,Ed Sheeran,Multiply,2014,Pop,3.9,643
+song_0409,Bad Habits,Ed Sheeran,Equals,2021,Pop,3.7,465
+song_0410,Castle on the Hill,Ed Sheeran,Divide,2017,Pop,3.8,626
+song_0411,Photograph,Ed Sheeran,Multiply,2014,Pop,3.6,156
+song_0412,Galway Girl,Ed Sheeran,Divide,2017,Pop,3.6,262
+song_0413,Happier,Ed Sheeran,Divide,2017,Pop,3.5,248
+song_0414,Shivers,Ed Sheeran,Equals,2021,Pop,4.7,242
+song_0415,Supermarket Flowers,Ed Sheeran,Divide,2017,Pop,4.6,487
+song_0416,The A Team,Ed Sheeran,Plus,2011,Pop,4.7,23
+song_0417,Sing,Ed Sheeran,Multiply,2014,Pop,3.5,137
+song_0418,Don't,Ed Sheeran,Multiply,2014,Pop,3.8,523
+song_0419,Lego House,Ed Sheeran,Plus,2011,Pop,4.4,593
+song_0420,Eyes Closed,Ed Sheeran,Subtract,2023,Pop,4.6,734
+song_0421,Don't Start Now,Dua Lipa,Future Nostalgia,2019,Pop,4.2,454
+song_0422,Levitating,Dua Lipa,Future Nostalgia,2020,Pop,4.5,664
+song_0423,New Rules,Dua Lipa,Dua Lipa,2017,Pop,3.7,137
+song_0424,Physical,Dua Lipa,Future Nostalgia,2020,Pop,4.4,743
+song_0425,Break My Heart,Dua Lipa,Future Nostalgia,2020,Pop,4.1,132
+song_0426,IDGAF,Dua Lipa,Dua Lipa,2017,Pop,4.1,20
+song_0427,One Kiss,Dua Lipa,Single,2018,Pop,4.2,339
+song_0428,Cold Heart (PNAU Remix),Dua Lipa,The Lockdown Sessions,2021,Pop,3.6,158
+song_0429,Dance The Night,Dua Lipa,Barbie Soundtrack,2023,Pop,4.6,278
+song_0430,Houdini,Dua Lipa,Optimism,2023,Pop,3.6,709
+song_0431,Be the One,Dua Lipa,Dua Lipa,2015,Pop,4.0,280
+song_0432,Blow Your Mind (Mwah),Dua Lipa,Dua Lipa,2016,Pop,3.6,191
+song_0433,Love Again,Dua Lipa,Future Nostalgia,2020,Pop,3.7,187
+song_0434,Hallucinate,Dua Lipa,Future Nostalgia,2020,Pop,4.5,340
+song_0435,Training Season,Dua Lipa,Optimism,2024,Pop,3.7,348
+song_0436,Three Little Birds,Bob Marley,Exodus,1977,Reggae,4.4,569
+song_0437,"No Woman, No Cry",Bob Marley,Natty Dread,1974,Reggae,4.0,625
+song_0438,Redemption Song,Bob Marley,Uprising,1980,Reggae,3.6,600
+song_0439,Could You Be Loved,Bob Marley,Uprising,1980,Reggae,4.5,255
+song_0440,One Love / People Get Ready,Bob Marley,Exodus,1977,Reggae,4.0,395
+song_0441,Is This Love,Bob Marley,Kaya,1978,Reggae,4.7,607
+song_0442,Jamming,Bob Marley,Exodus,1977,Reggae,4.0,532
+song_0443,Buffalo Soldier,Bob Marley,Confrontation,1983,Reggae,4.4,591
+song_0444,I Shot the Sheriff,Bob Marley,Burnin',1973,Reggae,4.5,798
+song_0445,"Get Up, Stand Up",Bob Marley,Burnin',1973,Reggae,4.5,289
+song_0446,Stir It Up,Bob Marley,Catch a Fire,1973,Reggae,4.5,310
+song_0447,Satisfy My Soul,Bob Marley,Kaya,1978,Reggae,3.7,24
+song_0448,Natural Mystic,Bob Marley,Exodus,1977,Reggae,3.8,97
+song_0449,Waiting in Vain,Bob Marley,Exodus,1977,Reggae,4.1,151
+song_0450,Exodus,Bob Marley,Exodus,1977,Reggae,3.9,61

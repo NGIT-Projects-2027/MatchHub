@@ -35,6 +35,15 @@ const userSchema = new mongoose.Schema({
       addedAt: { type: Date, default: Date.now },
     },
   ],
+  songFavorites: [
+    {
+      songId: String,
+      title: String,
+      artist: String,
+      album: String,
+      addedAt: { type: Date, default: Date.now },
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,

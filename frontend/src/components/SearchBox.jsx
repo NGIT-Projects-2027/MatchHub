@@ -1,17 +1,17 @@
-import { useState, useEffect, useRef } from "react";
-import { movieAPI, bookAPI } from "@/lib/api";
-import { Search, X, Film, BookOpen, Loader2, User as UserIcon } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { movieAPI, bookAPI, songAPI } from "@/lib/api";
+import { Search, X, Film, BookOpen, Music, Loader2, User as UserIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function SearchBox({ onSearch, loading: externalLoading, domain = "movies" }) {
   const [query, setQuery] = useState("");
-  const [allItems, setAllItems] = useState([]);
+  const [allItems, setAllItems] = useState([]);   // pre-loaded for movies/songs
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [fetchingBooks, setFetchingBooks] = useState(false);
   const inputRef = useRef(null);
   const containerRef = useRef(null);
-
-  const isMovies = domain === "movies";
+  const bookDebounceRef = useRef(null);
 
   useEffect(() => {
     // Reset on domain change
@@ -20,21 +20,14 @@ export default function SearchBox({ onSearch, loading: externalLoading, domain =
     setAllItems([]);
     setShowSuggestions(false);
 
-    // Fetch all items for fast local filtering
-    const loadAll = async () => {
-      try {
-        if (isMovies) {
-          const res = await movieAPI.search("all");
-          setAllItems(res.data);
-        } else {
-          const res = await bookAPI.search("all");
-          setAllItems(res.data);
-        }
-      } catch (err) {
-        console.error("Failed to load items:", err);
-      }
-    };
-    loadAll();
+    // Pre-load all items for movies and songs (small datasets — fast)
+    // For books (5,444 items) we use server-side search on every keystroke
+    if (domain === "movies") {
+      movieAPI.search("all").then(res => setAllItems(res.data)).catch(console.error);
+    } else if (domain === "songs") {
+      songAPI.search("all").then(res => setAllItems(res.data)).catch(console.error);
+    }
+    // books: no pre-load, server filters on demand
 
     // Close suggestions on outside click
     const handleClickOutside = (e) => {
@@ -46,7 +39,25 @@ export default function SearchBox({ onSearch, loading: externalLoading, domain =
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [domain]);
 
+  // Server-side book search with debounce
+  const searchBooksOnServer = useCallback((q) => {
+    if (bookDebounceRef.current) clearTimeout(bookDebounceRef.current);
+    bookDebounceRef.current = setTimeout(async () => {
+      try {
+        setFetchingBooks(true);
+        const res = await bookAPI.search(q || "");
+        setSuggestions(res.data);
+      } catch (err) {
+        console.error("Book search error:", err);
+      } finally {
+        setFetchingBooks(false);
+      }
+    }, 300);
+  }, []);
+
   const filterItems = (q) => {
+    // For books, filtering is done server-side (see handleInputChange)
+    if (domain === "books") return;
     if (!q) {
       setSuggestions(allItems.slice(0, 100));
       return;
@@ -60,12 +71,20 @@ export default function SearchBox({ onSearch, loading: externalLoading, domain =
     const value = e.target.value;
     setQuery(value);
     setShowSuggestions(true);
-    filterItems(value);
+    if (domain === "books") {
+      searchBooksOnServer(value);
+    } else {
+      filterItems(value);
+    }
   };
 
   const handleFocus = () => {
     setShowSuggestions(true);
-    filterItems(query);
+    if (domain === "books") {
+      searchBooksOnServer(query);
+    } else {
+      filterItems(query);
+    }
   };
 
   const handleSelect = (item) => {
@@ -89,10 +108,12 @@ export default function SearchBox({ onSearch, loading: externalLoading, domain =
     inputRef.current?.focus();
   };
 
-  const DomainIcon = isMovies ? Film : BookOpen;
-  const placeholderText = isMovies
+  const DomainIcon = domain === "movies" ? Film : (domain === "books" ? BookOpen : Music);
+  const placeholderText = domain === "movies"
     ? "Search for a movie... (e.g., Toy Story, Avatar, Inception)"
-    : "Search for a book... (e.g., Harry Potter, The Great Gatsby)";
+    : domain === "books"
+    ? "Search for a book... (e.g., Harry Potter, The Great Gatsby)"
+    : "Search for a song... (e.g., Yesterday, Thriller, Yellow)";
 
   return (
     <div ref={containerRef} style={{ position: "relative", width: "100%", maxWidth: "640px" }}>
@@ -107,7 +128,7 @@ export default function SearchBox({ onSearch, loading: externalLoading, domain =
               alignItems: "center",
             }}
           >
-            {externalLoading ? (
+            {externalLoading || fetchingBooks ? (
               <Loader2 size={20} style={{ animation: "spin 1s linear infinite" }} />
             ) : (
               <Search size={20} />
@@ -193,7 +214,7 @@ export default function SearchBox({ onSearch, loading: externalLoading, domain =
           >
             {suggestions.map((item, idx) => (
               <button
-                key={isMovies ? item.movieId : item.isbn}
+                key={domain === "movies" ? item.movieId : (domain === "books" ? item.isbn : item.songId)}
                 onClick={() => handleSelect(item)}
                 style={{
                   display: "flex",
@@ -213,9 +234,11 @@ export default function SearchBox({ onSearch, loading: externalLoading, domain =
                   transition: "background 0.15s ease",
                 }}
                 onMouseEnter={(e) =>
-                  (e.currentTarget.style.background = isMovies
+                  (e.currentTarget.style.background = domain === "movies"
                     ? "rgba(139, 92, 246, 0.08)"
-                    : "rgba(20, 184, 166, 0.08)")
+                    : domain === "books"
+                    ? "rgba(20, 184, 166, 0.08)"
+                    : "rgba(236, 72, 153, 0.08)")
                 }
                 onMouseLeave={(e) =>
                   (e.currentTarget.style.background = "transparent")
@@ -223,7 +246,7 @@ export default function SearchBox({ onSearch, loading: externalLoading, domain =
               >
                 <DomainIcon
                   size={16}
-                  style={{ color: isMovies ? "var(--color-accent-purple)" : "#14b8a6", flexShrink: 0 }}
+                  style={{ color: domain === "movies" ? "var(--color-accent-purple)" : (domain === "books" ? "#14b8a6" : "#ec4899"), flexShrink: 0 }}
                 />
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <p
@@ -245,13 +268,13 @@ export default function SearchBox({ onSearch, loading: externalLoading, domain =
                       flexWrap: "wrap",
                     }}
                   >
-                    {isMovies ? (
+                    {domain === "movies" ? (
                       item.genres?.slice(0, 3).map((g) => (
                         <span key={g} style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>
                           {g}
                         </span>
                       ))
-                    ) : (
+                    ) : domain === "books" ? (
                       <>
                         {item.author && (
                           <span style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", display: "flex", alignItems: "center", gap: "0.2rem" }}>
@@ -261,6 +284,19 @@ export default function SearchBox({ onSearch, loading: externalLoading, domain =
                         {item.year && item.year !== "0" && (
                           <span style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>
                             • {item.year}
+                          </span>
+                        )}
+                      </>
+                    ) : (
+                      <>
+                        {item.artist && (
+                          <span style={{ fontSize: "0.7rem", color: "var(--color-text-muted)", display: "flex", alignItems: "center", gap: "0.2rem" }}>
+                            <UserIcon size={10} /> {item.artist}
+                          </span>
+                        )}
+                        {item.album && (
+                          <span style={{ fontSize: "0.7rem", color: "var(--color-text-muted)" }}>
+                            • {item.album}
                           </span>
                         )}
                       </>

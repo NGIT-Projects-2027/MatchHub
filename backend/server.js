@@ -6,6 +6,7 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth");
 const moviesRoutes = require("./routes/movies");
 const booksRoutes = require("./routes/books");
+const songsRoutes = require("./routes/songs");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api", moviesRoutes);
 app.use("/api/books", booksRoutes);
+app.use("/api/songs", songsRoutes);
 
 // Health check
 app.get("/api/health", (req, res) => {

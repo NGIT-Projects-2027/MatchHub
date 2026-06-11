@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 const DomainContext = createContext();
 
 export function DomainProvider({ children }) {
-  const [domain, setDomain] = useState("movies"); // "movies" | "books"
+  const [domain, setDomain] = useState("movies"); // "movies" | "books" | "songs"
 
   return (
     <DomainContext.Provider value={{ domain, setDomain }}>

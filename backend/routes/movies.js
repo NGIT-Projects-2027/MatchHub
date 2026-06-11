@@ -181,6 +181,28 @@ router.delete("/history", authMiddleware, async (req, res) => {
 });
 
 /**
+ * DELETE /api/history/:id
+ * Delete a single search history item
+ */
+router.delete("/history/:id", authMiddleware, async (req, res) => {
+  try {
+    const historyItem = await History.findOneAndDelete({
+      _id: req.params.id,
+      userId: req.user.id,
+    });
+
+    if (!historyItem) {
+      return res.status(404).json({ error: "History item not found." });
+    }
+
+    res.json({ message: "History item deleted." });
+  } catch (err) {
+    console.error("Delete history item error:", err);
+    res.status(500).json({ error: "Failed to delete history item." });
+  }
+});
+
+/**
  * POST /api/favorites
  * Add a movie to favorites
  */
