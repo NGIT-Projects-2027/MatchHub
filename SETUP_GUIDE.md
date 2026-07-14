@@ -32,7 +32,7 @@ The ML service uses Python content-based recommendation models for both movies a
    ```
 3. Install the required Python packages:
    ```bash
-   pip install flask flask-cors pandas numpy
+   pip install flask flask-cors pandas numpy scikit-learn
    ```
 4. Train the models (Ensure you have placed the datasets inside `ml-service/data/movies/` and `ml-service/data/books/` first):
    ```bash
