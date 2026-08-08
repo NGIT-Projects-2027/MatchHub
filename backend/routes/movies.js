@@ -65,11 +65,22 @@ router.post("/recommend", async (req, res) => {
       return res.status(400).json({ error: "Movie title is required." });
     }
 
-    // Call Flask ML service
-    const mlResponse = await axios.post(`${FLASK_ML_URL}/recommend`, {
-      movie,
-      top_n: top_n || 10,
-    });
+    // Call Flask ML service with retry helper
+    let mlResponse;
+    const maxRetries = 3;
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        mlResponse = await axios.post(`${FLASK_ML_URL}/recommend`, {
+          movie,
+          top_n: top_n || 10,
+        }, { timeout: 35000 });
+        break;
+      } catch (err) {
+        if (attempt === maxRetries) throw err;
+        console.log(`[ML Retry] Retrying /recommend (attempt ${attempt}/${maxRetries})...`);
+        await new Promise((r) => setTimeout(r, 2000));
+      }
+    }
 
     const result = mlResponse.data;
     

@@ -18,10 +18,11 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Response interceptor for auth errors
+// Response interceptor for auth errors & Render cold-start auto-retry
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
+    const originalRequest = error.config;
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
@@ -29,7 +30,17 @@ api.interceptors.response.use(
       if (!window.location.pathname.includes("/login") && !window.location.pathname.includes("/signup")) {
         window.location.href = "/login";
       }
+      return Promise.reject(error);
     }
+
+    // Auto-retry once if server was sleeping on Render (cold start 500/502/503/504/timeout)
+    if (!originalRequest._retry && (!error.response || error.response.status >= 500 || error.code === "ECONNABORTED")) {
+      originalRequest._retry = true;
+      console.log("[Render Cold Start] Server waking up, retrying request in 3s...");
+      await new Promise((r) => setTimeout(r, 3000));
+      return api(originalRequest);
+    }
+
     return Promise.reject(error);
   }
 );
