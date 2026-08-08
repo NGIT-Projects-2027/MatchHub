@@ -12,9 +12,6 @@ backend/.env
 # Build outputs
 frontend/dist/
 
-# ML model pickle files (regenerated during build on Render)
-ml-service/models/*.pkl
-
 # Unnecessary data files (only tmdb_5000_*.csv are needed for training)
 ml-service/data/movies/links.csv
 ml-service/data/movies/movies.csv
