@@ -18,19 +18,37 @@ if sys.platform == "win32":
 app = Flask(__name__)
 CORS(app)
 
+import gc
+
 # --- Load Models ---
 MODELS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models")
 
-# --- Movie Model ---
-print("[*] Loading ML models...")
-movies = pickle.load(open(os.path.join(MODELS_DIR, "movies.pkl"), "rb"))
-similarity = pickle.load(open(os.path.join(MODELS_DIR, "movies_similarity.pkl"), "rb"))
-print(f"[OK] Loaded {len(movies)} movies, similarity matrix {similarity.shape}")
-
-# Build title-to-index lookup (case-insensitive)
+movies = None
+similarity = None
 title_to_idx = {}
-for idx, row in movies.iterrows():
-    title_to_idx[row["title"].lower().strip()] = idx
+movie_load_error = None
+
+# --- Movie Model ---
+print("[*] Loading Movie ML model...")
+movies_pkl_path = os.path.join(MODELS_DIR, "movies.pkl")
+movies_sim_pkl_path = os.path.join(MODELS_DIR, "movies_similarity.pkl")
+
+if os.path.exists(movies_pkl_path) and os.path.exists(movies_sim_pkl_path):
+    try:
+        movies = pickle.load(open(movies_pkl_path, "rb"))
+        similarity = pickle.load(open(movies_sim_pkl_path, "rb"))
+        for idx, row in movies.iterrows():
+            title_to_idx[row["title"].lower().strip()] = idx
+        print(f"[OK] Loaded {len(movies)} movies, similarity matrix {similarity.shape}")
+        gc.collect()
+    except Exception as e:
+        movie_load_error = str(e)
+        print(f"[ERROR] Failed to load movie model: {e}")
+        movies = None
+        similarity = None
+else:
+    movie_load_error = "Movie pickle files missing"
+    print(f"[WARN] {movie_load_error}")
 
 # --- Book Model (graceful loading) ---
 books = None
@@ -47,13 +65,13 @@ if os.path.exists(books_pkl_path) and os.path.exists(books_sim_pkl_path):
         for idx, row in books.iterrows():
             book_title_to_idx[row["title"].lower().strip()] = idx
         print(f"[OK] Loaded {len(books)} books, similarity matrix {books_similarity.shape}")
+        gc.collect()
     except Exception as e:
         print(f"[WARN] Failed to load book models: {e}")
         books = None
         books_similarity = None
 else:
-    print("[WARN] Book model files not found. Book endpoints will return 503. Run train_books_model.py first.")
-
+    print("[WARN] Book model files not found.")
 
 # --- Song Model (graceful loading) ---
 songs = None
@@ -70,12 +88,14 @@ if os.path.exists(songs_pkl_path) and os.path.exists(songs_sim_pkl_path):
         for idx, row in songs.iterrows():
             song_title_to_idx[row["title"].lower().strip()] = idx
         print(f"[OK] Loaded {len(songs)} songs, similarity matrix {songs_similarity.shape}")
+        gc.collect()
     except Exception as e:
         print(f"[WARN] Failed to load song models: {e}")
         songs = None
         songs_similarity = None
 else:
-    print("[WARN] Song model files not found. Song endpoints will return 503. Run train_songs_model.py first.")
+    print("[WARN] Song model files not found.")
+
 
 
 
@@ -297,10 +317,11 @@ def get_song_recommendations(song_name, top_n=10):
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({
-        "status": "ok",
-        "movies_count": len(movies),
+        "status": "ok" if movies is not None else "degraded",
+        "movies_count": len(movies) if movies is not None else 0,
         "books_count": len(books) if books is not None else 0,
-        "songs_count": len(songs) if songs is not None else 0
+        "songs_count": len(songs) if songs is not None else 0,
+        "movie_load_error": movie_load_error
     })
 
 
@@ -311,6 +332,9 @@ def health():
 @app.route("/recommend", methods=["POST"])
 def recommend():
     """Get movie recommendations."""
+    if movies is None or similarity is None:
+        return jsonify({"error": f"Movie recommendation model not loaded. {movie_load_error or ''}"}), 503
+
     data = request.get_json()
     if not data or "movie" not in data:
         return jsonify({"error": "Missing 'movie' field"}), 400
