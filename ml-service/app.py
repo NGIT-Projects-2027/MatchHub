@@ -592,5 +592,7 @@ def songs_trending():
 
 
 if __name__ == "__main__":
-    print("[*] Starting Flask ML Service on port 5000...")
-    app.run(host="0.0.0.0", port=5000, debug=False)
+    import os
+    port = int(os.environ.get("PORT", 5000))
+    print(f"[*] Starting Flask ML Service on port {port}...")
+    app.run(host="0.0.0.0", port=port, debug=False)
